@@ -1,63 +1,74 @@
-// ===== LANGUAGE TOGGLE =====
-const LANG_KEY = 'alt-tab-lang';
-let currentLang = localStorage.getItem(LANG_KEY) || 'fr';
+/* ========== LANGUAGE TOGGLE ========== */
+const langToggle = document.getElementById('langToggle');
+let currentLang = localStorage.getItem('lang') || 'fr';
 
 function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem(LANG_KEY, lang);
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-fr][data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-    });
-    // Update meta description
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-        meta.content = lang === 'fr'
-            ? 'Alt Tab Studio — Studio digital en Haute-Savoie. On crée votre site web, on vous le montre, vous décidez. Zéro risque.'
-            : 'Alt Tab Studio — Digital studio in Haute-Savoie. We build your website, show you, you decide. Zero risk.';
-    }
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+
+  document.querySelectorAll('[data-fr]').forEach(el => {
+    el.textContent = el.getAttribute(`data-${lang}`);
+  });
+
+  document.querySelectorAll('[data-fr-placeholder]').forEach(el => {
+    el.placeholder = el.getAttribute(`data-${lang}-placeholder`);
+  });
 }
 
-document.getElementById('lang-toggle').addEventListener('click', () => {
-    setLang(currentLang === 'fr' ? 'en' : 'fr');
+langToggle.addEventListener('click', () => {
+  setLang(currentLang === 'fr' ? 'en' : 'fr');
 });
 
-// Apply saved language on load
 setLang(currentLang);
 
-// ===== MOBILE MENU =====
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', navMenu.classList.contains('open'));
-});
-
-// Close menu on link click
-navMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-    });
-});
-
-// ===== INTERSECTION OBSERVER (FADE IN) =====
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// ===== NAVBAR SHADOW ON SCROLL =====
+/* ========== NAVBAR SCROLL ========== */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-    navbar.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.06)' : 'none';
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
+
+/* ========== REVEAL ON SCROLL ========== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+/* ========== HORIZONTAL CAROUSEL DRAG ========== */
+const carousel = document.querySelector('.projects-scroll');
+if (carousel) {
+  let isDown = false, startX, scrollLeft;
+
+  carousel.addEventListener('mousedown', e => {
+    isDown = true;
+    carousel.style.cursor = 'grabbing';
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+
+  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.style.cursor = 'grab'; });
+  carousel.addEventListener('mouseup', () => { isDown = false; carousel.style.cursor = 'grab'; });
+
+  carousel.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    carousel.scrollLeft = scrollLeft - (x - startX);
+  });
+}
+
+/* ========== SMOOTH ANCHOR SCROLL ========== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});

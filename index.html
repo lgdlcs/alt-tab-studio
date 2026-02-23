@@ -1,288 +1,213 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alt Tab Studio — Votre site, avant le devis.</title>
-    <meta name="description" content="Alt Tab Studio — Studio digital en Haute-Savoie. On crée votre site web, on vous le montre, vous décidez. Zéro risque.">
-    <meta property="og:title" content="Alt Tab Studio — Votre site, avant le devis.">
-    <meta property="og:description" content="Studio digital en Haute-Savoie. On crée votre site web, on vous le montre, vous décidez. Zéro risque.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alt-tab.studio">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:locale:alternate" content="en_US">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alt Tab Studio — Votre site, avant le devis.</title>
+  <meta name="description" content="Alt Tab Studio — On crée votre site web avant le devis. Design studio en Haute-Savoie.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo"><span class="logo-alt">Alt Tab</span> <span class="logo-studio">Studio</span></a>
-            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#services" class="nav-link" data-fr="Services" data-en="Services">Services</a>
-                <a href="#portfolio" class="nav-link" data-fr="Réalisations" data-en="Portfolio">Réalisations</a>
-                <a href="#pricing" class="nav-link" data-fr="Tarifs" data-en="Pricing">Tarifs</a>
-                <a href="#contact" class="nav-link" data-fr="Contact" data-en="Contact">Contact</a>
-                <button class="lang-toggle" id="lang-toggle" aria-label="Changer de langue">FR | EN</button>
-                <a href="#contact" class="btn btn-primary nav-cta" data-fr="Parlons-en" data-en="Let's talk">Parlons-en</a>
-            </div>
-        </div>
-    </nav>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">Alt Tab Studio</a>
+    <div class="nav-links">
+      <a href="#projects" data-fr="Projets" data-en="Work">Projets</a>
+      <a href="#services" data-fr="Services" data-en="Services">Services</a>
+      <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
+      <button class="lang-toggle" id="langToggle">EN</button>
+    </div>
+  </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="dot-grid"></div>
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1 class="hero-tagline fade-in" data-fr="Votre site, avant le devis." data-en="Your website, before the quote.">Votre site, avant le devis.</h1>
-                <p class="hero-subtitle fade-in" data-fr="On crée votre site web. On vous le montre. Vous décidez. Zéro engagement, zéro risque." data-en="We build your website. We show you. You decide. Zero commitment, zero risk.">On crée votre site web. On vous le montre. Vous décidez. Zéro engagement, zéro risque.</p>
-                <div class="hero-ctas fade-in">
-                    <a href="#portfolio" class="btn btn-primary" data-fr="Découvrir nos réalisations" data-en="See our work">Découvrir nos réalisations</a>
-                    <a href="#contact" class="btn btn-secondary" data-fr="Nous contacter" data-en="Contact us">Nous contacter</a>
-                </div>
-            </div>
-            <div class="hero-visual fade-in">
-                <div class="keys-illustration">
-                    <div class="key key-alt">Alt</div>
-                    <div class="key-plus">+</div>
-                    <div class="key key-tab">Tab ⇥</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-orb"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span data-fr="Votre site," data-en="Your website,">Votre site,</span><br>
+        <span data-fr="avant le devis." data-en="before the quote.">avant le devis.</span>
+      </h1>
+      <p class="hero-sub" data-fr="On développe, vous décidez. Pas l'inverse." data-en="We build, you decide. Not the other way around.">On développe, vous décidez. Pas l'inverse.</p>
+    </div>
+    <div class="hero-keys" aria-hidden="true">
+      <div class="key key-alt">Alt</div>
+      <div class="key key-tab">Tab ⇥</div>
+    </div>
+    <div class="scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="section how-it-works" id="how">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</h2>
-            <div class="steps">
-                <div class="step-card fade-in">
-                    <span class="step-icon">🔍</span>
-                    <span class="step-number">1</span>
-                    <h3 data-fr="On étudie votre activité" data-en="We study your business">On étudie votre activité</h3>
-                    <p data-fr="On analyse vos besoins, votre marché et vos objectifs." data-en="We analyze your needs, market and goals.">On analyse vos besoins, votre marché et vos objectifs.</p>
-                </div>
-                <div class="step-arrow fade-in">→</div>
-                <div class="step-card fade-in">
-                    <span class="step-icon">💻</span>
-                    <span class="step-number">2</span>
-                    <h3 data-fr="On crée votre site" data-en="We build your site">On crée votre site</h3>
-                    <p data-fr="On développe un site complet, prêt à être mis en ligne." data-en="We develop a complete site, ready to go live.">On développe un site complet, prêt à être mis en ligne.</p>
-                </div>
-                <div class="step-arrow fade-in">→</div>
-                <div class="step-card fade-in">
-                    <span class="step-icon">🚀</span>
-                    <span class="step-number">3</span>
-                    <h3 data-fr="Vous validez, on lance" data-en="You approve, we launch">Vous validez, on lance</h3>
-                    <p data-fr="Vous voyez le résultat, vous décidez. Simple." data-en="You see the result, you decide. Simple.">Vous voyez le résultat, vous décidez. Simple.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="manifesto">
+    <div class="manifesto-text">
+      <p class="reveal" data-fr="On ne fait pas de devis." data-en="We don't do quotes.">On ne fait pas de devis.</p>
+      <p class="reveal" data-fr="On fait votre site." data-en="We build your site.">On fait votre site.</p>
+      <p class="reveal" data-fr="On vous le montre." data-en="We show you.">On vous le montre.</p>
+      <p class="reveal" data-fr="Vous décidez." data-en="You decide.">Vous décidez.</p>
+    </div>
+    <div class="manifesto-visual" aria-hidden="true">
+      <div class="browser-mockup">
+        <div class="browser-bar"><span></span><span></span><span></span></div>
+        <div class="browser-body"></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section class="section services" id="services">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Nos services" data-en="Our services">Nos services</h2>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
-                    <h3 data-fr="Sites Web" data-en="Websites">Sites Web</h3>
-                    <p data-fr="Landing pages, sites vitrines, e-commerce. Design moderne, SEO-ready, responsive." data-en="Landing pages, showcase sites, e-commerce. Modern design, SEO-ready, responsive.">Landing pages, sites vitrines, e-commerce. Design moderne, SEO-ready, responsive.</p>
-                    <span class="service-price" data-fr="À partir de 350€" data-en="Starting at 350€">À partir de 350€</span>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <h3 data-fr="Automatisation & IA" data-en="Automation & AI">Automatisation & IA</h3>
-                    <p data-fr="Agents autonomes, chatbots, workflows automatisés. On simplifie vos processus." data-en="Autonomous agents, chatbots, automated workflows. We simplify your processes.">Agents autonomes, chatbots, workflows automatisés. On simplifie vos processus.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                    </div>
-                    <h3 data-fr="Conseil Digital" data-en="Digital Consulting">Conseil Digital</h3>
-                    <p data-fr="Audit de présence en ligne, stratégie digitale, formation aux outils IA." data-en="Online presence audit, digital strategy, AI tool training.">Audit de présence en ligne, stratégie digitale, formation aux outils IA.</p>
-                </div>
-            </div>
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <h2 class="section-title-left reveal" data-fr="Réalisations" data-en="Work">Réalisations</h2>
+    <div class="projects-scroll">
+      <article class="project-card">
+        <div class="project-img gradient-teal"></div>
+        <div class="project-info">
+          <h3>Meat Grill</h3>
+          <p data-fr="Restaurant • Copponex" data-en="Restaurant • Copponex">Restaurant • Copponex</p>
+          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
+          <a href="https://lgdlcs.github.io/meat-grill/" target="_blank" rel="noopener" data-fr="Voir →" data-en="View →">Voir →</a>
         </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="section portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Nos réalisations" data-en="Our work">Nos réalisations</h2>
-            <div class="portfolio-grid">
-                <div class="project-card fade-in" style="--card-accent: #0d9488">
-                    <div class="project-top"></div>
-                    <div class="project-body">
-                        <h3>Meat Grill</h3>
-                        <p data-fr="Site vitrine pour un kebab à Copponex" data-en="Showcase site for a kebab restaurant">Site vitrine pour un kebab à Copponex</p>
-                        <div class="tags">
-                            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
-                        </div>
-                        <a href="https://lgdlcs.github.io/meat-grill/" target="_blank" rel="noopener" class="project-link" data-fr="Voir le site →" data-en="View site →">Voir le site →</a>
-                    </div>
-                </div>
-                <div class="project-card fade-in" style="--card-accent: #2563eb">
-                    <div class="project-top"></div>
-                    <div class="project-body">
-                        <h3>La P'tite Clarine</h3>
-                        <p data-fr="Restaurant savoyard à Samoëns" data-en="Savoyard restaurant in Samoëns">Restaurant savoyard à Samoëns</p>
-                        <div class="tags">
-                            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
-                        </div>
-                        <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" class="project-link" data-fr="Voir le site →" data-en="View site →">Voir le site →</a>
-                    </div>
-                </div>
-                <div class="project-card fade-in" style="--card-accent: #f97316">
-                    <div class="project-top"></div>
-                    <div class="project-body">
-                        <h3>Aero-Bi</h3>
-                        <p data-fr="École de parapente" data-en="Paragliding school">École de parapente</p>
-                        <div class="tags">
-                            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
-                        </div>
-                        <span class="project-link project-soon" data-fr="Bientôt en ligne" data-en="Coming soon">Bientôt en ligne</span>
-                    </div>
-                </div>
-            </div>
+      </article>
+      <article class="project-card">
+        <div class="project-img gradient-orange"></div>
+        <div class="project-info">
+          <h3>La P'tite Clarine</h3>
+          <p data-fr="Restaurant • Samoëns" data-en="Restaurant • Samoëns">Restaurant • Samoëns</p>
+          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
+          <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" data-fr="Voir →" data-en="View →">Voir →</a>
         </div>
-    </section>
-
-    <!-- WHY US -->
-    <section class="section why-us" id="why-us">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Pourquoi nous" data-en="Why us">Pourquoi nous</h2>
-            <div class="why-grid">
-                <div class="why-card fade-in">
-                    <span class="why-icon">✅</span>
-                    <h3 data-fr="Zéro risque" data-en="Zero risk">Zéro risque</h3>
-                    <p data-fr="Voyez le site avant de payer. Pas convaincu ? Pas de facture." data-en="See the site before paying. Not convinced? No invoice.">Voyez le site avant de payer. Pas convaincu ? Pas de facture.</p>
-                </div>
-                <div class="why-card fade-in">
-                    <span class="why-icon">⚡</span>
-                    <h3 data-fr="Techno moderne" data-en="Modern tech">Techno moderne</h3>
-                    <p data-fr="IA, performance, optimisation. Votre site est rapide et efficace." data-en="AI-powered, fast, optimized. Your site is quick and effective.">IA, performance, optimisation. Votre site est rapide et efficace.</p>
-                </div>
-                <div class="why-card fade-in">
-                    <span class="why-icon">📍</span>
-                    <h3 data-fr="Local & disponible" data-en="Local & available">Local & disponible</h3>
-                    <p data-fr="Basés en Haute-Savoie. On se rencontre si vous le souhaitez." data-en="Based in Haute-Savoie. We can meet in person if you'd like.">Basés en Haute-Savoie. On se rencontre si vous le souhaitez.</p>
-                </div>
-                <div class="why-card fade-in">
-                    <span class="why-icon">💰</span>
-                    <h3 data-fr="Prix transparent" data-en="Transparent pricing">Prix transparent</h3>
-                    <p data-fr="Pas de frais cachés. Vous savez exactement ce que vous payez." data-en="No hidden fees. You know exactly what you're paying for.">Pas de frais cachés. Vous savez exactement ce que vous payez.</p>
-                </div>
-            </div>
+      </article>
+      <article class="project-card">
+        <div class="project-img gradient-indigo"></div>
+        <div class="project-info">
+          <h3>Aero-Bi</h3>
+          <p data-fr="Parapente • Formation" data-en="Paragliding • Training">Parapente • Formation</p>
+          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
+          <span class="project-soon" data-fr="Bientôt" data-en="Soon">Bientôt</span>
         </div>
-    </section>
-
-    <!-- PRICING -->
-    <section class="section pricing" id="pricing">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Nos tarifs" data-en="Our pricing">Nos tarifs</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card fade-in">
-                    <h3>Starter</h3>
-                    <div class="price" data-fr="À partir de 350€" data-en="From 350€">À partir de 350€</div>
-                    <ul>
-                        <li data-fr="Landing page 1-3 pages" data-en="Landing page 1-3 pages">Landing page 1-3 pages</li>
-                        <li data-fr="Design responsive" data-en="Responsive design">Design responsive</li>
-                        <li data-fr="SEO basique" data-en="Basic SEO">SEO basique</li>
-                        <li data-fr="Livraison 1 semaine" data-en="1 week delivery">Livraison 1 semaine</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary" data-fr="Choisir" data-en="Choose">Choisir</a>
-                </div>
-                <div class="pricing-card pricing-featured fade-in">
-                    <span class="pricing-badge" data-fr="Recommandé" data-en="Recommended">Recommandé</span>
-                    <h3>Pro</h3>
-                    <div class="price" data-fr="À partir de 800€" data-en="From 800€">À partir de 800€</div>
-                    <ul>
-                        <li data-fr="Site vitrine complet" data-en="Full showcase site">Site vitrine complet</li>
-                        <li data-fr="CMS simple (Google Sheets)" data-en="Simple CMS (Google Sheets)">CMS simple (Google Sheets)</li>
-                        <li data-fr="Formulaire de contact" data-en="Contact form">Formulaire de contact</li>
-                        <li>Analytics</li>
-                        <li data-fr="Livraison 2 semaines" data-en="2 week delivery">Livraison 2 semaines</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary" data-fr="Choisir" data-en="Choose">Choisir</a>
-                </div>
-                <div class="pricing-card fade-in">
-                    <h3 data-fr="Sur-mesure" data-en="Custom">Sur-mesure</h3>
-                    <div class="price" data-fr="Sur devis" data-en="On quote">Sur devis</div>
-                    <ul>
-                        <li>E-commerce</li>
-                        <li data-fr="Automatisation" data-en="Automation">Automatisation</li>
-                        <li data-fr="Intégration IA" data-en="AI integration">Intégration IA</li>
-                        <li data-fr="Accompagnement dédié" data-en="Dedicated support">Accompagnement dédié</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary" data-fr="Nous contacter" data-en="Contact us">Nous contacter</a>
-                </div>
-            </div>
+      </article>
+      <article class="project-card project-cta">
+        <div class="project-img gradient-cta"></div>
+        <div class="project-info">
+          <h3 data-fr="Votre projet ?" data-en="Your project?">Votre projet ?</h3>
+          <p data-fr="Parlons-en." data-en="Let's talk.">Parlons-en.</p>
+          <a href="#contact" data-fr="Contact →" data-en="Contact →">Contact →</a>
         </div>
-    </section>
+      </article>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in" data-fr="Un projet en tête ?" data-en="Got a project in mind?">Un projet en tête ?</h2>
-            <p class="section-subtitle fade-in" data-fr="Décrivez votre activité, on vous montre ce qu'on peut faire." data-en="Describe your business, we'll show you what we can do.">Décrivez votre activité, on vous montre ce qu'on peut faire.</p>
-            <div class="contact-wrapper fade-in">
-                <form class="contact-form" action="https://formspree.io/f/placeholder" method="POST">
-                    <div class="form-group">
-                        <label for="name" data-fr="Nom" data-en="Name">Nom</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" data-fr="Envoyer" data-en="Send">Envoyer</button>
-                </form>
-                <div class="contact-info">
-                    <p>📧 <a href="mailto:contact@alt-tab.studio">contact@alt-tab.studio</a></p>
-                    <p>📍 Haute-Savoie, France</p>
-                </div>
-            </div>
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <h2 class="section-title reveal" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</h2>
+    <div class="timeline">
+      <div class="timeline-line"></div>
+      <div class="timeline-step reveal">
+        <span class="step-num">01</span>
+        <div>
+          <h3 data-fr="Échange" data-en="Discovery">Échange</h3>
+          <p data-fr="On discute de votre activité et vos besoins." data-en="We discuss your business and needs.">On discute de votre activité et vos besoins.</p>
         </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <a href="#" class="logo"><span class="logo-alt">Alt Tab</span> <span class="logo-studio">Studio</span></a>
-                <div class="footer-links">
-                    <a href="#services" data-fr="Services" data-en="Services">Services</a>
-                    <a href="#portfolio" data-fr="Réalisations" data-en="Portfolio">Réalisations</a>
-                    <a href="#pricing" data-fr="Tarifs" data-en="Pricing">Tarifs</a>
-                    <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p data-fr="Fait avec ❤️ en Haute-Savoie" data-en="Made with ❤️ in Haute-Savoie">Fait avec ❤️ en Haute-Savoie</p>
-                <p>© 2026 Alt Tab Studio</p>
-                <p class="footer-easter" data-fr="Ctrl+Z si vous n'êtes pas convaincu ;)" data-en="Ctrl+Z if you're not convinced ;)">Ctrl+Z si vous n'êtes pas convaincu ;)</p>
-            </div>
+      </div>
+      <div class="timeline-step reveal">
+        <span class="step-num">02</span>
+        <div>
+          <h3 data-fr="Création" data-en="Build">Création</h3>
+          <p data-fr="On développe votre site en quelques jours." data-en="We build your site in days.">On développe votre site en quelques jours.</p>
         </div>
-    </footer>
+      </div>
+      <div class="timeline-step reveal">
+        <span class="step-num">03</span>
+        <div>
+          <h3 data-fr="Livraison" data-en="Launch">Livraison</h3>
+          <p data-fr="Vous validez, on met en ligne." data-en="You approve, we launch.">Vous validez, on met en ligne.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-left">
+      <h2 class="reveal" data-fr="Ce qu'on fait" data-en="What we do">Ce qu'on fait</h2>
+    </div>
+    <div class="services-right reveal-stagger">
+      <div class="service-block">
+        <div class="service-dot"></div>
+        <h3 data-fr="Sites Web" data-en="Websites">Sites Web</h3>
+        <p data-fr="Sites vitrines rapides, modernes et optimisés." data-en="Fast, modern, optimized showcase websites.">Sites vitrines rapides, modernes et optimisés.</p>
+      </div>
+      <div class="service-block">
+        <div class="service-dot dot-orange"></div>
+        <h3 data-fr="Automatisation" data-en="Automation">Automatisation</h3>
+        <p data-fr="Workflows, bots et outils sur mesure." data-en="Workflows, bots and custom tools.">Workflows, bots et outils sur mesure.</p>
+      </div>
+      <div class="service-block">
+        <div class="service-dot dot-indigo"></div>
+        <h3 data-fr="Conseil IA" data-en="AI Consulting">Conseil IA</h3>
+        <p data-fr="Intégration d'IA dans votre activité." data-en="AI integration for your business.">Intégration d'IA dans votre activité.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <h2 class="section-title reveal" data-fr="Tarifs" data-en="Pricing">Tarifs</h2>
+    <div class="pricing-rows reveal-stagger">
+      <div class="pricing-row">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-features" data-fr="Site one-page • responsive • livraison 5j" data-en="One-page site • responsive • 5-day delivery">Site one-page • responsive • livraison 5j</div>
+        <div class="pricing-price" data-fr="350€+" data-en="€350+">350€+</div>
+      </div>
+      <div class="pricing-row pricing-highlight">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-features" data-fr="Multi-pages • animations • SEO • formulaire" data-en="Multi-page • animations • SEO • forms">Multi-pages • animations • SEO • formulaire</div>
+        <div class="pricing-price" data-fr="800€+" data-en="€800+">800€+</div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-name">Custom</div>
+        <div class="pricing-features" data-fr="Projet sur mesure • app web • IA" data-en="Custom project • web app • AI">Projet sur mesure • app web • IA</div>
+        <div class="pricing-price" data-fr="Sur devis" data-en="Let's talk">Sur devis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <h2 class="reveal" data-fr="Un projet ?" data-en="Got a project?">Un projet ?</h2>
+      <p class="contact-sub reveal" data-fr="On vous montre ce qu'on peut faire." data-en="We'll show you what we can do.">On vous montre ce qu'on peut faire.</p>
+      <form class="contact-form reveal" action="https://formspree.io/f/placeholder" method="POST">
+        <input type="email" name="email" required placeholder="Email" data-fr-placeholder="Votre email" data-en-placeholder="Your email">
+        <textarea name="message" rows="4" required placeholder="Message" data-fr-placeholder="Votre message" data-en-placeholder="Your message"></textarea>
+        <button type="submit" data-fr="Envoyer" data-en="Send">Envoyer</button>
+      </form>
+      <div class="contact-info reveal">
+        <span>hello@alttabstudio.fr</span>
+        <span>Haute-Savoie, France</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <span class="footer-logo">Alt Tab Studio</span>
+      <div class="footer-links">
+        <a href="#projects" data-fr="Projets" data-en="Work">Projets</a>
+        <a href="#services" data-fr="Services" data-en="Services">Services</a>
+        <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
+      </div>
+      <span class="footer-loc">Haute-Savoie 🇫🇷</span>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2026 Alt Tab Studio — Ctrl+Z si pas convaincu ;)" data-en="© 2026 Alt Tab Studio — Ctrl+Z if not convinced ;)">© 2026 Alt Tab Studio — Ctrl+Z si pas convaincu ;)</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

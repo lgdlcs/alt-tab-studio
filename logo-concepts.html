@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Concepts — Alt Tab Studio</title>
+  <style>
+    body { background: #0a0a0a; color: #fafafa; font-family: 'Inter', system-ui, sans-serif; padding: 3rem; display: flex; flex-wrap: wrap; gap: 4rem; justify-content: center; align-items: flex-start; }
+    .concept { text-align: center; }
+    .concept h3 { margin-top: 1.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+    .concept svg { filter: drop-shadow(0 0 20px rgba(13,148,136,0.2)); }
+    .row { display: flex; gap: 2rem; align-items: center; }
+    .dark-bg { background: #0a0a0a; padding: 2rem; border-radius: 16px; }
+    .light-bg { background: #fafafa; padding: 2rem; border-radius: 16px; }
+    .light-bg h3 { color: #666; }
+  </style>
+</head>
+<body>
+
+  <!-- CONCEPT 1: Overlapping windows (alt+tab switch) -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Back window -->
+      <rect x="10" y="10" width="65" height="55" rx="8" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2.5"/>
+      <!-- Front window (shifted, teal) -->
+      <rect x="45" y="45" width="65" height="55" rx="8" fill="#0d9488" fill-opacity="0.15" stroke="#0d9488" stroke-width="2.5"/>
+      <!-- Arrow suggesting switch -->
+      <path d="M38 70 L82 30" stroke="#0d9488" stroke-width="2" stroke-dasharray="4 3" opacity="0.4"/>
+    </svg>
+    <h3>1 — Window Switch</h3>
+  </div>
+
+  <!-- CONCEPT 2: Two keys merging -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Alt key -->
+      <rect x="8" y="35" width="48" height="48" rx="10" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"/>
+      <text x="32" y="65" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Inter, system-ui" font-weight="700" font-size="14">Alt</text>
+      <!-- Tab key (overlapping, teal) -->
+      <rect x="52" y="25" width="58" height="48" rx="10" fill="#0d9488" fill-opacity="0.1" stroke="#0d9488" stroke-width="2.5"/>
+      <text x="81" y="53" text-anchor="middle" fill="#0d9488" font-family="Inter, system-ui" font-weight="700" font-size="13">Tab</text>
+      <!-- Arrow on tab key -->
+      <path d="M68 60 L92 60" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M88 56 L92 60 L88 64" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Subtle connection -->
+      <circle cx="56" cy="50" r="3" fill="#0d9488" opacity="0.6"/>
+    </svg>
+    <h3>2 — Keyboard Keys</h3>
+  </div>
+
+  <!-- CONCEPT 3: Geometric monogram A/T with tab arrow -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer rounded square -->
+      <rect x="10" y="10" width="100" height="100" rx="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+      <!-- Stylized "A" -->
+      <path d="M35 85 L52 35 L69 85" stroke="#fafafa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <line x1="41" y1="68" x2="63" y2="68" stroke="#fafafa" stroke-width="3" stroke-linecap="round"/>
+      <!-- Tab arrow (→) coming from the A -->
+      <path d="M65 50 L95 50" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+      <path d="M88 42 L96 50 L88 58" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <h3>3 — A + Tab Arrow</h3>
+  </div>
+
+  <!-- CONCEPT 4: Bracket/code style -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left bracket -->
+      <path d="M30 25 L18 25 Q10 25 10 33 L10 87 Q10 95 18 95 L30 95" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <!-- Right bracket teal -->
+      <path d="M90 25 L102 25 Q110 25 110 33 L110 87 Q110 95 102 95 L90 95" stroke="#0d9488" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <!-- ⇥ Tab symbol in center -->
+      <line x1="35" y1="60" x2="72" y2="60" stroke="#fafafa" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M66 52 L74 60 L66 68" stroke="#fafafa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <line x1="80" y1="48" x2="80" y2="72" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <h3>4 — Code Brackets + Tab</h3>
+  </div>
+
+  <!-- CONCEPT 5: Minimal — two stacked planes with shift -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bottom plane -->
+      <path d="M15 75 L55 55 L105 75 L65 95 Z" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+      <!-- Top plane (elevated, teal) -->
+      <path d="M25 55 L65 35 L105 55 L65 75 Z" fill="#0d9488" fill-opacity="0.12" stroke="#0d9488" stroke-width="2"/>
+      <!-- Vertical connector -->
+      <line x1="65" y1="75" x2="65" y2="95" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4"/>
+    </svg>
+    <h3>5 — Dimension Shift</h3>
+  </div>
+
+  <!-- CONCEPT 6: Portal / ring -->
+  <div class="concept">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring -->
+      <circle cx="60" cy="60" r="45" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+      <!-- Inner portal ring teal -->
+      <ellipse cx="60" cy="60" rx="28" ry="38" stroke="#0d9488" stroke-width="2.5" transform="rotate(-15 60 60)"/>
+      <!-- Tab arrow through portal -->
+      <path d="M38 60 L82 60" stroke="#fafafa" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M74 52 L84 60 L74 68" stroke="#fafafa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Glow dot -->
+      <circle cx="84" cy="60" r="3" fill="#0d9488" opacity="0.8"/>
+    </svg>
+    <h3>6 — Portal</h3>
+  </div>
+
+</body>
+</html>

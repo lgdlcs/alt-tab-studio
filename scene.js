@@ -9,8 +9,9 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
+const isMobile = window.innerWidth < 768;
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
-camera.position.set(0, 0, 5);
+camera.position.set(0, 0, isMobile ? 7.5 : 5);
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -117,7 +118,7 @@ const anomalyMat = new THREE.ShaderMaterial({
 });
 
 const anomaly = new THREE.Mesh(anomalyGeo, anomalyMat);
-anomaly.position.set(1.8, 0.5, 0);
+anomaly.position.set(isMobile ? 0.8 : 1.8, isMobile ? -1.2 : 0.5, 0);
 scene.add(anomaly);
 
 // Glow ring around anomaly
@@ -141,9 +142,10 @@ fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/fonts/helve
   const matWhite = new THREE.MeshBasicMaterial({ color: 0xfafafa, transparent: true, opacity: 0.95 });
   const matTeal = new THREE.MeshBasicMaterial({ color: 0x0d9488, transparent: true, opacity: 0.95 });
 
+  const textSize = isMobile ? 0.35 : 0.55;
   const textOpts = {
     font,
-    size: 0.55,
+    size: textSize,
     depth: 0.06,
     curveSegments: 12,
     bevelEnabled: false,
@@ -161,13 +163,17 @@ fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/fonts/helve
   geo2.computeBoundingBox();
   const w2 = geo2.boundingBox.max.x - geo2.boundingBox.min.x;
   const mesh2 = new THREE.Mesh(geo2, matTeal);
-  mesh2.position.set(-w2 / 2, -0.45, 0);
+  mesh2.position.set(-w2 / 2, isMobile ? -0.3 : -0.45, 0);
 
   titleGroup.add(mesh1, mesh2);
 
-  // Position left of center, slightly rotated toward anomaly (right)
-  titleGroup.position.set(-0.8, 0.2, 0);
-  titleGroup.rotation.y = 0.12; // ~7° toward the anomaly on the right
+  if (isMobile) {
+    titleGroup.position.set(-0.5, 0.8, 0);
+    titleGroup.rotation.y = 0.08;
+  } else {
+    titleGroup.position.set(-0.8, 0.2, 0);
+    titleGroup.rotation.y = 0.12;
+  }
 });
 
 // ─── Ambient light for depth ────────────────────────
@@ -250,6 +256,9 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  if (currentZone === 'intro') {
+    camera.position.z = window.innerWidth < 768 ? 7.5 : 5;
+  }
 });
 
 // ─── Subtle camera parallax ─────────────────────────

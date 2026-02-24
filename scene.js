@@ -214,9 +214,19 @@ function startWarp() {
   document.getElementById('hint').classList.add('hidden');
   document.getElementById('zone-intro').classList.remove('zone-active');
 
-  // Remove anomaly + fade title
-  scene.remove(anomaly);
-  scene.remove(ring);
+  // Fade out anomaly + ring
+  let anomalyFade = 1;
+  const anomalyInterval = setInterval(() => {
+    anomalyFade -= 0.05;
+    if (anomalyFade <= 0) {
+      scene.remove(anomaly);
+      scene.remove(ring);
+      clearInterval(anomalyInterval);
+      return;
+    }
+    anomalyMat.opacity = anomalyFade;
+    ringMat.opacity = anomalyFade * 0.15;
+  }, 16);
   // Fade out title
   titleGroup.traverse((child) => {
     if (child.material) child.material.transparent = true;

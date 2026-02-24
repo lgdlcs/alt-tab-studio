@@ -23,10 +23,20 @@
 
   <!-- ZONE: INTRO (space) — title is 3D text in scene.js -->
 
+  <!-- NAVBAR (appears after warp) -->
+  <nav id="navbar" class="navbar hidden">
+    <div class="nav-logo">Alt Tab <span class="nav-accent">Studio</span></div>
+    <div class="nav-links">
+      <a href="#work" data-section="work">Work</a>
+      <a href="#services" data-section="services">Services</a>
+      <a href="#contact" data-section="contact">Contact</a>
+    </div>
+  </nav>
+
   <!-- ZONE: WORK (after warp) -->
   <div id="zone-work" class="zone">
     <div class="zone-content">
-      <h2 class="section-title">What we build</h2>
+      <h2 class="section-title" id="work">What we build</h2>
       <div class="cards">
         <div class="card">
           <div class="card-icon">◈</div>
@@ -44,7 +54,7 @@
           <p>Smart AI solutions embedded into your business.</p>
         </div>
       </div>
-      <div class="cta-row">
+      <div class="cta-row" id="contact">
         <a href="mailto:hello@alttabstudio.fr" class="cta-btn">Get in touch</a>
         <span class="cta-loc">Haute-Savoie, France 🇫🇷</span>
       </div>

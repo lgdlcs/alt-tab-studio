@@ -60,20 +60,7 @@ body {
   padding: 2rem;
 }
 
-/* Zone: Intro */
-.title {
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-}
-.accent { color: #0d9488; }
-.subtitle {
-  margin-top: 1.2rem;
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  font-weight: 300;
-  color: rgba(255,255,255,0.4);
-}
+/* Zone: Intro — title is 3D in Three.js */
 
 /* Zone: Work */
 .section-title {

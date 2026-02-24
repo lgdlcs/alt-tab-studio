@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 // ─── Setup ───────────────────────────────────────────
 const canvas = document.getElementById('scene');
@@ -130,6 +132,44 @@ const ring = new THREE.Mesh(ringGeo, ringMat);
 ring.position.copy(anomaly.position);
 scene.add(ring);
 
+// ─── 3D Title Text ──────────────────────────────────
+let titleGroup = new THREE.Group();
+scene.add(titleGroup);
+
+const fontLoader = new FontLoader();
+fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+  const matWhite = new THREE.MeshBasicMaterial({ color: 0xfafafa, transparent: true, opacity: 0.95 });
+  const matTeal = new THREE.MeshBasicMaterial({ color: 0x0d9488, transparent: true, opacity: 0.95 });
+
+  const textOpts = {
+    font,
+    size: 0.55,
+    depth: 0.06,
+    curveSegments: 12,
+    bevelEnabled: false,
+  };
+
+  // "Alt Tab"
+  const geo1 = new TextGeometry('Alt Tab', textOpts);
+  geo1.computeBoundingBox();
+  const w1 = geo1.boundingBox.max.x - geo1.boundingBox.min.x;
+  const mesh1 = new THREE.Mesh(geo1, matWhite);
+  mesh1.position.set(-w1 / 2, 0.3, 0);
+
+  // "Studio"
+  const geo2 = new TextGeometry('Studio', textOpts);
+  geo2.computeBoundingBox();
+  const w2 = geo2.boundingBox.max.x - geo2.boundingBox.min.x;
+  const mesh2 = new THREE.Mesh(geo2, matTeal);
+  mesh2.position.set(-w2 / 2, -0.45, 0);
+
+  titleGroup.add(mesh1, mesh2);
+
+  // Position left of center, slightly rotated toward anomaly (right)
+  titleGroup.position.set(-0.8, 0.2, 0);
+  titleGroup.rotation.y = 0.12; // ~7° toward the anomaly on the right
+});
+
 // ─── Ambient light for depth ────────────────────────
 const ambientLight = new THREE.AmbientLight(0x0d9488, 0.3);
 scene.add(ambientLight);
@@ -174,9 +214,25 @@ function startWarp() {
   document.getElementById('hint').classList.add('hidden');
   document.getElementById('zone-intro').classList.remove('zone-active');
 
-  // Remove anomaly
+  // Remove anomaly + fade title
   scene.remove(anomaly);
   scene.remove(ring);
+  // Fade out title
+  titleGroup.traverse((child) => {
+    if (child.material) child.material.transparent = true;
+  });
+  let titleFade = 1;
+  const fadeInterval = setInterval(() => {
+    titleFade -= 0.03;
+    if (titleFade <= 0) {
+      scene.remove(titleGroup);
+      clearInterval(fadeInterval);
+      return;
+    }
+    titleGroup.traverse((child) => {
+      if (child.material) child.material.opacity = titleFade;
+    });
+  }, 16);
 }
 
 // ─── Resize ──────────────────────────────────────────

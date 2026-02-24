@@ -9,7 +9,12 @@ body {
 
 /* Canvas */
 #scene {
-  position: fixed; inset: 0; z-index: 0;
+  position: fixed; inset: 0; z-index: 6;
+  transition: z-index 0s 0.5s;
+}
+#scene.behind {
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Overlay */
@@ -54,6 +59,7 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+/* (moved to #scene block) */
 .zone-content {
   text-align: center;
   max-width: 900px;

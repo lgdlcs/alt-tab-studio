@@ -291,9 +291,10 @@ function animate() {
     if (warpProgress >= 1) {
       currentZone = 'work';
       starMat.uniforms.uWarp.value = 0;
-      // Transition to zone-work + show navbar
+      // Transition to zone-work + show navbar, canvas goes behind
       document.getElementById('zone-work').classList.add('zone-active');
       document.getElementById('navbar').classList.remove('hidden');
+      canvas.classList.add('behind');
       // Slow down stars for ambient background
       starMat.uniforms.uWarp.value = 0;
     }

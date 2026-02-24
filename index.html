@@ -3,189 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alt Tab Studio — Votre site, avant le devis.</title>
-  <meta name="description" content="Alt Tab Studio — On crée votre site web avant le devis. Design studio en Haute-Savoie.">
+  <title>Alt Tab Studio</title>
+  <meta name="description" content="Alt Tab Studio — Studio digital en Haute-Savoie.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <canvas id="scene"></canvas>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <a href="#" class="nav-logo">Alt Tab Studio</a>
-    <div class="nav-links">
-      <a href="#projects" data-fr="Projets" data-en="Work">Projets</a>
-      <a href="#services" data-fr="Services" data-en="Services">Services</a>
-      <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
-      <button class="lang-toggle" id="langToggle">EN</button>
+  <!-- OVERLAY UI -->
+  <div id="overlay" class="overlay">
+    <div class="hint" id="hint">
+      <span class="hint-icon">⬡</span>
+      <span>Click the anomaly</span>
     </div>
-  </nav>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-orb"></div>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span data-fr="Votre site," data-en="Your website,">Votre site,</span><br>
-        <span data-fr="avant le devis." data-en="before the quote.">avant le devis.</span>
-      </h1>
-      <p class="hero-sub" data-fr="On développe, vous décidez. Pas l'inverse." data-en="We build, you decide. Not the other way around.">On développe, vous décidez. Pas l'inverse.</p>
+  <!-- ZONE: INTRO (space) -->
+  <div id="zone-intro" class="zone zone-active">
+    <div class="zone-content">
+      <h1 class="title">Alt Tab<br><span class="accent">Studio</span></h1>
+      <p class="subtitle">We build digital experiences.</p>
     </div>
-    <div class="hero-keys" aria-hidden="true">
-      <div class="key key-alt">Alt</div>
-      <div class="key key-tab">Tab ⇥</div>
-    </div>
-    <div class="scroll-indicator">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    </div>
-  </section>
+  </div>
 
-  <!-- MANIFESTO -->
-  <section class="manifesto" id="manifesto">
-    <div class="manifesto-text">
-      <p class="reveal" data-fr="On ne fait pas de devis." data-en="We don't do quotes.">On ne fait pas de devis.</p>
-      <p class="reveal" data-fr="On fait votre site." data-en="We build your site.">On fait votre site.</p>
-      <p class="reveal" data-fr="On vous le montre." data-en="We show you.">On vous le montre.</p>
-      <p class="reveal" data-fr="Vous décidez." data-en="You decide.">Vous décidez.</p>
-    </div>
-    <div class="manifesto-visual" aria-hidden="true">
-      <div class="browser-mockup">
-        <div class="browser-bar"><span></span><span></span><span></span></div>
-        <div class="browser-body"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section class="projects" id="projects">
-    <h2 class="section-title-left reveal" data-fr="Réalisations" data-en="Work">Réalisations</h2>
-    <div class="projects-scroll">
-      <article class="project-card">
-        <div class="project-img gradient-teal"></div>
-        <div class="project-info">
-          <h3>Meat Grill</h3>
-          <p data-fr="Restaurant • Copponex" data-en="Restaurant • Copponex">Restaurant • Copponex</p>
-          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
-          <a href="https://lgdlcs.github.io/meat-grill/" target="_blank" rel="noopener" data-fr="Voir →" data-en="View →">Voir →</a>
+  <!-- ZONE: WORK (after warp) -->
+  <div id="zone-work" class="zone">
+    <div class="zone-content">
+      <h2 class="section-title">What we build</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">◈</div>
+          <h3>Websites</h3>
+          <p>Fast, modern, handcrafted sites that tell your story.</p>
         </div>
-      </article>
-      <article class="project-card">
-        <div class="project-img gradient-orange"></div>
-        <div class="project-info">
-          <h3>La P'tite Clarine</h3>
-          <p data-fr="Restaurant • Samoëns" data-en="Restaurant • Samoëns">Restaurant • Samoëns</p>
-          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
-          <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" data-fr="Voir →" data-en="View →">Voir →</a>
+        <div class="card">
+          <div class="card-icon">⟡</div>
+          <h3>Automation</h3>
+          <p>Workflows, bots and custom tools that save you time.</p>
         </div>
-      </article>
-      <article class="project-card">
-        <div class="project-img gradient-indigo"></div>
-        <div class="project-info">
-          <h3>Aero-Bi</h3>
-          <p data-fr="Parapente • Formation" data-en="Paragliding • Training">Parapente • Formation</p>
-          <div class="project-tags"><span>HTML/CSS</span><span>JS</span></div>
-          <span class="project-soon" data-fr="Bientôt" data-en="Soon">Bientôt</span>
-        </div>
-      </article>
-      <article class="project-card project-cta">
-        <div class="project-img gradient-cta"></div>
-        <div class="project-info">
-          <h3 data-fr="Votre projet ?" data-en="Your project?">Votre projet ?</h3>
-          <p data-fr="Parlons-en." data-en="Let's talk.">Parlons-en.</p>
-          <a href="#contact" data-fr="Contact →" data-en="Contact →">Contact →</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="process" id="process">
-    <h2 class="section-title reveal" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</h2>
-    <div class="timeline">
-      <div class="timeline-line"></div>
-      <div class="timeline-step reveal">
-        <span class="step-num">01</span>
-        <div>
-          <h3 data-fr="Échange" data-en="Discovery">Échange</h3>
-          <p data-fr="On discute de votre activité et vos besoins." data-en="We discuss your business and needs.">On discute de votre activité et vos besoins.</p>
+        <div class="card">
+          <div class="card-icon">◎</div>
+          <h3>AI Integration</h3>
+          <p>Smart AI solutions embedded into your business.</p>
         </div>
       </div>
-      <div class="timeline-step reveal">
-        <span class="step-num">02</span>
-        <div>
-          <h3 data-fr="Création" data-en="Build">Création</h3>
-          <p data-fr="On développe votre site en quelques jours." data-en="We build your site in days.">On développe votre site en quelques jours.</p>
-        </div>
-      </div>
-      <div class="timeline-step reveal">
-        <span class="step-num">03</span>
-        <div>
-          <h3 data-fr="Livraison" data-en="Launch">Livraison</h3>
-          <p data-fr="Vous validez, on met en ligne." data-en="You approve, we launch.">Vous validez, on met en ligne.</p>
-        </div>
+      <div class="cta-row">
+        <a href="mailto:hello@alttabstudio.fr" class="cta-btn">Get in touch</a>
+        <span class="cta-loc">Haute-Savoie, France 🇫🇷</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="services-left">
-      <h2 class="reveal" data-fr="Ce qu'on fait" data-en="What we do">Ce qu'on fait</h2>
-    </div>
-    <div class="services-right reveal-stagger">
-      <div class="service-block">
-        <div class="service-dot"></div>
-        <h3 data-fr="Sites Web" data-en="Websites">Sites Web</h3>
-        <p data-fr="Sites vitrines rapides, modernes et optimisés." data-en="Fast, modern, optimized showcase websites.">Sites vitrines rapides, modernes et optimisés.</p>
-      </div>
-      <div class="service-block">
-        <div class="service-dot dot-orange"></div>
-        <h3 data-fr="Automatisation" data-en="Automation">Automatisation</h3>
-        <p data-fr="Workflows, bots et outils sur mesure." data-en="Workflows, bots and custom tools.">Workflows, bots et outils sur mesure.</p>
-      </div>
-      <div class="service-block">
-        <div class="service-dot dot-indigo"></div>
-        <h3 data-fr="Conseil IA" data-en="AI Consulting">Conseil IA</h3>
-        <p data-fr="Intégration d'IA dans votre activité." data-en="AI integration for your business.">Intégration d'IA dans votre activité.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <h2 class="reveal" data-fr="Un projet ?" data-en="Got a project?">Un projet ?</h2>
-      <p class="contact-sub reveal" data-fr="On vous montre ce qu'on peut faire." data-en="We'll show you what we can do.">On vous montre ce qu'on peut faire.</p>
-      <form class="contact-form reveal" action="https://formspree.io/f/placeholder" method="POST">
-        <input type="email" name="email" required placeholder="Email" data-fr-placeholder="Votre email" data-en-placeholder="Your email">
-        <textarea name="message" rows="4" required placeholder="Message" data-fr-placeholder="Votre message" data-en-placeholder="Your message"></textarea>
-        <button type="submit" data-fr="Envoyer" data-en="Send">Envoyer</button>
-      </form>
-      <div class="contact-info reveal">
-        <span>hello@alttabstudio.fr</span>
-        <span>Haute-Savoie, France</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-top">
-      <span class="footer-logo">Alt Tab Studio</span>
-      <div class="footer-links">
-        <a href="#projects" data-fr="Projets" data-en="Work">Projets</a>
-        <a href="#services" data-fr="Services" data-en="Services">Services</a>
-        <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
-      </div>
-      <span class="footer-loc">Haute-Savoie 🇫🇷</span>
-    </div>
-    <div class="footer-bottom">
-      <span data-fr="© 2026 Alt Tab Studio — Ctrl+Z si pas convaincu ;)" data-en="© 2026 Alt Tab Studio — Ctrl+Z if not convinced ;)">© 2026 Alt Tab Studio — Ctrl+Z si pas convaincu ;)</span>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="scene.js"></script>
 </body>
 </html>

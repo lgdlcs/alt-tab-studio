@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alt Tab Studio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="description" content="Alt Tab Studio — Studio digital en Haute-Savoie.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,17 @@
 
   <!-- NAVBAR (appears after warp) -->
   <nav id="navbar" class="navbar hidden">
-    <div class="nav-logo">Alt Tab <span class="nav-accent">Studio</span></div>
+    <div class="nav-logo">
+      <svg class="nav-icon" width="28" height="28" viewBox="0 0 120 120" fill="none">
+        <path d="M60 95 L20 70 L60 45 L100 70 Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M60 75 L20 50 L60 25 L100 50 Z" fill="#0d9488" fill-opacity="0.12" stroke="#0d9488" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="20" y1="70" x2="20" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="100" y1="70" x2="100" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="60" y1="95" x2="60" y2="75" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="60" y1="45" x2="60" y2="25" stroke="#0d9488" stroke-width="1.5" opacity="0.3"/>
+      </svg>
+      <span>Alt Tab <span class="nav-accent">Studio</span></span>
+    </div>
     <div class="nav-links">
       <a href="#work" data-section="work">Work</a>
       <a href="#services" data-section="services">Services</a>

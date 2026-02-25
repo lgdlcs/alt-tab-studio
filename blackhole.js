@@ -1,19 +1,27 @@
 import * as THREE from 'three';
 
 const canvas = document.getElementById('blackhole-bg');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const isMobile = window.innerWidth < 768;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile });
+// Half resolution on mobile for performance
+const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
+renderer.setPixelRatio(pixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-// Full-screen quad with Schwarzschild black hole ray-tracer
+const STEPS = isMobile ? 64 : 100;
+
 const geo = new THREE.PlaneGeometry(2, 2);
 const mat = new THREE.ShaderMaterial({
   uniforms: {
     uTime: { value: 0 },
-    uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    uResolution: { value: new THREE.Vector2(
+      window.innerWidth * pixelRatio,
+      window.innerHeight * pixelRatio
+    ) },
   },
   vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
   fragmentShader: `
@@ -22,144 +30,136 @@ const mat = new THREE.ShaderMaterial({
     uniform vec2 uResolution;
 
     #define PI 3.14159265359
-    #define MAX_STEPS 128
-    #define BH_MASS 1.0
-    #define RS 2.0 * BH_MASS          // Schwarzschild radius
-    #define DISK_INNER 3.0 * RS       // ISCO
-    #define DISK_OUTER 12.0 * RS
-    #define DISK_HALF_THICK 0.05
+    #define STEPS ${STEPS}
+    #define RS 2.0                     // Schwarzschild radius
+    #define PHOTON_R 1.5 * RS          // Photon sphere
+    #define DISK_INNER 3.0             // ISCO (3 * RS)
+    #define DISK_OUTER 14.0
+    #define DISK_HALF 0.15             // Half-thickness
 
-    // ── Pseudo-random ────────────────────────────
+    // ── Hash ─────────────────────────────────────
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
     }
 
-    // ── Star field ───────────────────────────────
-    float starField(vec3 dir) {
-      // Project direction to 2D
-      float theta = acos(dir.y);
+    // ── Stars ────────────────────────────────────
+    float stars(vec3 dir) {
+      float theta = acos(clamp(dir.y, -1.0, 1.0));
       float phi = atan(dir.z, dir.x);
-      vec2 uv = vec2(phi / (2.0 * PI), theta / PI);
-      
+      vec2 uv = vec2(phi / (2.0 * PI) + 0.5, theta / PI);
+
       float s = 0.0;
-      // Multiple layers of stars
-      for (float scale = 80.0; scale <= 200.0; scale += 60.0) {
-        vec2 id = floor(uv * scale);
+      for (float i = 0.0; i < 3.0; i++) {
+        float scale = 60.0 + i * 50.0;
+        vec2 cell = floor(uv * scale);
         vec2 f = fract(uv * scale);
-        float h = hash(id);
-        if (h > 0.92) {
-          vec2 center = vec2(hash(id + 1.0), hash(id + 2.0));
-          float d = length(f - center);
-          float brightness = h * h;
-          float size = 0.02 + 0.03 * hash(id + 3.0);
-          s += smoothstep(size, 0.0, d) * brightness;
+        float h = hash(cell + i * 100.0);
+        if (h > 0.9) {
+          vec2 p = vec2(hash(cell + i * 200.0), hash(cell + i * 300.0));
+          float d = length(f - p);
+          float r = 0.01 + 0.02 * hash(cell + i * 400.0);
+          s += smoothstep(r, 0.0, d) * (0.5 + 0.5 * h);
         }
       }
       return s;
     }
 
     // ── Accretion disk ───────────────────────────
-    vec4 accretionDisk(vec3 pos, float t) {
-      // Disk lies in XZ plane (y=0), tilted
-      float y = pos.y;
-      if (abs(y) > DISK_HALF_THICK) return vec4(0.0);
-
+    // Disk in the XZ plane (y ≈ 0)
+    vec3 diskColor(vec3 pos, float t) {
       float r = length(pos.xz);
-      if (r < DISK_INNER || r > DISK_OUTER) return vec4(0.0);
+      if (r < DISK_INNER || r > DISK_OUTER) return vec3(0.0);
+      if (abs(pos.y) > DISK_HALF) return vec3(0.0);
 
-      // Radial temperature gradient
+      // Temperature: hotter near center
       float temp = 1.0 - (r - DISK_INNER) / (DISK_OUTER - DISK_INNER);
-      temp = pow(temp, 0.6);
+      temp = pow(clamp(temp, 0.0, 1.0), 0.5);
 
-      // Color: inner white-hot → orange → teal outer
-      vec3 white = vec3(1.0, 0.97, 0.92);
-      vec3 orange = vec3(0.95, 0.5, 0.1);
-      vec3 teal = vec3(0.05, 0.58, 0.53);
-      
-      vec3 col;
-      if (temp > 0.6) {
-        col = mix(orange, white, (temp - 0.6) / 0.4);
-      } else {
-        col = mix(teal, orange, temp / 0.6);
-      }
+      // Color gradient
+      vec3 hot = vec3(1.0, 0.95, 0.85);
+      vec3 warm = vec3(1.0, 0.55, 0.12);
+      vec3 cool = vec3(0.05, 0.58, 0.53);
 
-      // Swirl pattern
+      vec3 col = temp > 0.5
+        ? mix(warm, hot, (temp - 0.5) * 2.0)
+        : mix(cool, warm, temp * 2.0);
+
+      // Swirl
       float angle = atan(pos.z, pos.x);
-      float swirl = sin(angle * 4.0 - t * 0.5 + r * 2.0) * 0.5 + 0.5;
-      float swirl2 = sin(angle * 8.0 + t * 0.3 - r * 3.5) * 0.5 + 0.5;
-      col *= 0.7 + 0.3 * swirl;
-      col += 0.05 * swirl2 * teal;
+      float swirl = 0.7 + 0.3 * sin(angle * 5.0 - t * 0.4 + r * 1.5);
+      col *= swirl;
 
-      // Doppler: approaching side brighter (rotation around Y)
-      float doppler = 1.0 + 0.3 * sin(angle + t * 0.2);
-      col *= doppler;
+      // Doppler shift (approaching side brighter)
+      col *= 1.0 + 0.35 * sin(angle + PI * 0.25);
 
-      // Edge softness
-      float edge = smoothstep(DISK_INNER, DISK_INNER + 0.5, r) *
-                   smoothstep(DISK_OUTER, DISK_OUTER - 1.5, r);
-      float yFade = 1.0 - abs(y) / DISK_HALF_THICK;
+      // Edge falloff
+      float radialFade = smoothstep(DISK_INNER, DISK_INNER + 1.0, r) *
+                         smoothstep(DISK_OUTER, DISK_OUTER - 2.0, r);
+      float vertFade = 1.0 - smoothstep(0.0, DISK_HALF, abs(pos.y));
 
-      float alpha = edge * yFade * (0.8 + 0.2 * temp);
+      // Brightness boost for inner region
+      float brightness = 1.0 + temp * 3.0;
 
-      return vec4(col * (1.0 + temp * 2.0), alpha);
+      return col * radialFade * vertFade * brightness;
     }
 
-    // ── Gravitational ray bending ────────────────
-    // Simulate photon geodesic in Schwarzschild spacetime
-    // Using Euler integration of the deflection
-    void traceRay(vec3 ro, vec3 rd, float t, out vec3 color, out float alpha) {
-      color = vec3(0.0);
-      alpha = 0.0;
-
+    // ── Ray tracer ───────────────────────────────
+    // Schwarzschild geodesic: d²r/dλ² = -1.5 * RS * L² / r⁴
+    // where L = |r × v| is the specific angular momentum
+    vec3 trace(vec3 ro, vec3 rd, float t) {
       vec3 pos = ro;
-      vec3 vel = rd;
-      float dt = 0.15;
+      vec3 vel = normalize(rd);
+      float stepSize = 0.3;
+      vec3 col = vec3(0.0);
+      float diskAlpha = 0.0;
 
-      for (int i = 0; i < MAX_STEPS; i++) {
+      for (int i = 0; i < STEPS; i++) {
         float r = length(pos);
 
-        // Captured by black hole
-        if (r < RS * 1.01) {
-          color = vec3(0.0);
-          alpha = 1.0;
-          return;
+        // Adaptive step size: smaller near the BH
+        stepSize = max(0.05, 0.15 * r / PHOTON_R);
+
+        // Captured
+        if (r < RS * 0.95) {
+          return col;
         }
 
-        // Escaped to star field
-        if (r > 60.0) {
-          float s = starField(normalize(vel));
-          vec3 starCol = vec3(0.7, 0.8, 1.0) * s;
-          color += starCol * (1.0 - alpha);
-          return;
+        // Escaped
+        if (r > 70.0) {
+          float s = stars(normalize(vel));
+          col += vec3(0.65, 0.7, 0.9) * s * (1.0 - diskAlpha);
+          return col;
         }
 
-        // Check accretion disk intersection
-        vec4 diskSample = accretionDisk(pos, t);
-        if (diskSample.a > 0.01) {
-          color += diskSample.rgb * diskSample.a * (1.0 - alpha);
-          alpha += diskSample.a * (1.0 - alpha);
-          if (alpha > 0.95) return;
+        // Disk check (only when near the plane)
+        if (abs(pos.y) < DISK_HALF * 1.5) {
+          vec3 dc = diskColor(pos, t);
+          float lum = length(dc);
+          if (lum > 0.01) {
+            float a = min(lum * 0.5, 1.0);
+            col += dc * (1.0 - diskAlpha);
+            diskAlpha += a * (1.0 - diskAlpha);
+            if (diskAlpha > 0.95) return col;
+          }
         }
 
-        // Gravitational acceleration (Newtonian approx of Schwarzschild geodesic)
-        // a = -1.5 * RS * h^2 / r^5 * pos  (effective potential)
-        // Simplified: deflection proportional to RS/r^2
+        // Gravitational deflection
+        // The correct Schwarzschild photon equation:
+        // acceleration = -1.5 * RS * (L²/r⁵) * pos
+        // where L² = |pos × vel|²
         float r2 = r * r;
-        float r3 = r2 * r;
-        vec3 accel = -1.5 * RS * pos / r3;
+        vec3 L = cross(pos, vel);
+        float L2 = dot(L, L);
+        vec3 accel = -1.5 * RS * L2 / (r2 * r2 * r) * pos;
 
-        // Extra term for proper photon orbit behavior
-        vec3 h = cross(pos, vel);
-        float h2 = dot(h, h);
-        accel += -1.5 * RS * h2 / (r2 * r3) * pos;
-
-        vel += accel * dt;
-        pos += vel * dt;
+        vel += accel * stepSize;
+        pos += vel * stepSize;
       }
 
-      // Didn't converge — use star field
-      float s = starField(normalize(vel));
-      color += vec3(0.7, 0.8, 1.0) * s * (1.0 - alpha);
+      // Timeout: use star field
+      float s = stars(normalize(vel));
+      col += vec3(0.65, 0.7, 0.9) * s * (1.0 - diskAlpha);
+      return col;
     }
 
     void main() {
@@ -167,29 +167,32 @@ const mat = new THREE.ShaderMaterial({
 
       float t = uTime;
 
-      // Camera setup — slightly above the disk plane, looking at BH
-      vec3 camPos = vec3(0.0, 3.0, 25.0);
+      // Camera: slightly above disk plane, offset for composition
+      // BH slightly right of center so form sits on the left
+      vec3 camPos = vec3(0.0, 4.0, 28.0);
       vec3 target = vec3(0.0, 0.0, 0.0);
       vec3 fwd = normalize(target - camPos);
       vec3 right = normalize(cross(fwd, vec3(0.0, 1.0, 0.0)));
       vec3 up = cross(right, fwd);
 
-      float fov = 0.8;
+      float fov = 0.7;
       vec3 rd = normalize(fwd + uv.x * right * fov + uv.y * up * fov);
 
-      vec3 col;
-      float alpha;
-      traceRay(camPos, rd, t, col, alpha);
+      vec3 col = trace(camPos, rd, t);
 
-      // Photon ring glow: boost brightness near the critical orbit
-      // (already handled implicitly by the ray tracing)
+      // Photon ring glow — subtle bloom around photon sphere
+      vec2 bhScreen = vec2(0.0, -0.04); // BH center in screen space approx
+      float distToCenter = length(uv - bhScreen);
+      float ringR = 0.11; // photon ring apparent radius
+      float ringGlow = exp(-pow((distToCenter - ringR) * 25.0, 2.0)) * 0.15;
+      col += vec3(1.0, 0.85, 0.6) * ringGlow;
 
-      // Tone mapping
-      col = col / (1.0 + col); // Reinhard
-      col = pow(col, vec3(0.9)); // slight gamma
+      // Reinhard tone mapping
+      col = col / (1.0 + col);
+      col = pow(col, vec3(0.92));
 
-      // Subtle vignette
-      float vig = 1.0 - 0.3 * length(uv);
+      // Vignette
+      float vig = 1.0 - 0.35 * dot(uv, uv);
       col *= vig;
 
       gl_FragColor = vec4(col, 1.0);
@@ -197,18 +200,27 @@ const mat = new THREE.ShaderMaterial({
   `,
 });
 
-const quad = new THREE.Mesh(geo, mat);
-scene.add(quad);
+scene.add(new THREE.Mesh(geo, mat));
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
-  mat.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+  mat.uniforms.uResolution.value.set(
+    window.innerWidth * pixelRatio,
+    window.innerHeight * pixelRatio
+  );
 });
 
+// Throttle on mobile: 30fps instead of 60
+const targetFPS = isMobile ? 30 : 60;
+const frameInterval = 1000 / targetFPS;
+let lastFrame = 0;
+
 const clock = new THREE.Clock();
-function animate() {
+function animate(now) {
   requestAnimationFrame(animate);
+  if (now - lastFrame < frameInterval) return;
+  lastFrame = now;
   mat.uniforms.uTime.value = clock.getElapsedTime();
   renderer.render(scene, camera);
 }
-animate();
+requestAnimationFrame(animate);

@@ -1,226 +1,193 @@
 import * as THREE from 'three';
 
 const canvas = document.getElementById('blackhole-bg');
-const isMobile = window.innerWidth < 768;
-
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile });
-// Half resolution on mobile for performance
-const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
-renderer.setPixelRatio(pixelRatio);
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-const STEPS = isMobile ? 64 : 100;
-
+// Full-screen quad with black hole shader
 const geo = new THREE.PlaneGeometry(2, 2);
 const mat = new THREE.ShaderMaterial({
   uniforms: {
     uTime: { value: 0 },
-    uResolution: { value: new THREE.Vector2(
-      window.innerWidth * pixelRatio,
-      window.innerHeight * pixelRatio
-    ) },
+    uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    uMouse: { value: new THREE.Vector2(0.5, 0.5) },
   },
-  vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
+  vertexShader: `
+    void main() {
+      gl_Position = vec4(position, 1.0);
+    }
+  `,
   fragmentShader: `
     precision highp float;
     uniform float uTime;
     uniform vec2 uResolution;
+    uniform vec2 uMouse;
 
-    #define PI 3.14159265359
-    #define STEPS ${STEPS}
-    #define RS 2.0                     // Schwarzschild radius
-    #define PHOTON_R 1.5 * RS          // Photon sphere
-    #define DISK_INNER 3.0             // ISCO (3 * RS)
-    #define DISK_OUTER 14.0
-    #define DISK_HALF 0.15             // Half-thickness
+    #define PI 3.14159265
+    #define RING_INNER 0.18
+    #define RING_OUTER 0.55
+    #define BH_RADIUS 0.12
 
-    // ── Hash ─────────────────────────────────────
+    // Pseudo-random
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
     }
 
-    // ── Stars ────────────────────────────────────
-    float stars(vec3 dir) {
-      float theta = acos(clamp(dir.y, -1.0, 1.0));
-      float phi = atan(dir.z, dir.x);
-      vec2 uv = vec2(phi / (2.0 * PI) + 0.5, theta / PI);
-
-      float s = 0.0;
-      for (float i = 0.0; i < 3.0; i++) {
-        float scale = 60.0 + i * 50.0;
-        vec2 cell = floor(uv * scale);
-        vec2 f = fract(uv * scale);
-        float h = hash(cell + i * 100.0);
-        if (h > 0.9) {
-          vec2 p = vec2(hash(cell + i * 200.0), hash(cell + i * 300.0));
-          float d = length(f - p);
-          float r = 0.01 + 0.02 * hash(cell + i * 400.0);
-          s += smoothstep(r, 0.0, d) * (0.5 + 0.5 * h);
+    // Star field
+    float stars(vec2 uv, float scale) {
+      vec2 id = floor(uv * scale);
+      vec2 f = fract(uv * scale);
+      float d = 1.0;
+      for (int y = -1; y <= 1; y++) {
+        for (int x = -1; x <= 1; x++) {
+          vec2 neighbor = vec2(float(x), float(y));
+          vec2 p = vec2(hash(id + neighbor), hash(id + neighbor + 100.0));
+          float size = hash(id + neighbor + 200.0);
+          if (size < 0.85) continue; // only bright stars
+          d = min(d, length(f - neighbor - p));
         }
       }
-      return s;
+      float brightness = 1.0 - smoothstep(0.0, 0.025, d);
+      return brightness;
     }
 
-    // ── Accretion disk ───────────────────────────
-    // Disk in the XZ plane (y ≈ 0)
-    vec3 diskColor(vec3 pos, float t) {
-      float r = length(pos.xz);
-      if (r < DISK_INNER || r > DISK_OUTER) return vec3(0.0);
-      if (abs(pos.y) > DISK_HALF) return vec3(0.0);
+    // Accretion disk color (hot gas: orange → white → teal)
+    vec3 diskColor(float r, float angle, float t) {
+      // Temperature gradient: inner = white-hot, outer = orange/teal
+      float temp = smoothstep(RING_OUTER, RING_INNER, r);
+      vec3 hot = vec3(1.0, 0.95, 0.9);        // white-hot core
+      vec3 mid = vec3(0.9, 0.4, 0.1);          // orange
+      vec3 cool = vec3(0.05, 0.58, 0.53);      // teal (brand color)
 
-      // Temperature: hotter near center
-      float temp = 1.0 - (r - DISK_INNER) / (DISK_OUTER - DISK_INNER);
-      temp = pow(clamp(temp, 0.0, 1.0), 0.5);
+      vec3 col = mix(cool, mid, temp);
+      col = mix(col, hot, temp * temp);
 
-      // Color gradient
-      vec3 hot = vec3(1.0, 0.95, 0.85);
-      vec3 warm = vec3(1.0, 0.55, 0.12);
-      vec3 cool = vec3(0.05, 0.58, 0.53);
+      // Swirl pattern
+      float swirl = sin(angle * 3.0 - t * 0.8 + r * 12.0) * 0.5 + 0.5;
+      float swirl2 = sin(angle * 7.0 + t * 0.5 - r * 20.0) * 0.5 + 0.5;
+      col *= 0.6 + 0.4 * swirl;
+      col += 0.1 * swirl2 * vec3(0.05, 0.58, 0.53);
 
-      vec3 col = temp > 0.5
-        ? mix(warm, hot, (temp - 0.5) * 2.0)
-        : mix(cool, warm, temp * 2.0);
+      // Brightness falloff
+      float ring = smoothstep(RING_INNER, RING_INNER + 0.08, r) *
+                   smoothstep(RING_OUTER, RING_OUTER - 0.1, r);
+      col *= ring;
 
-      // Swirl
-      float angle = atan(pos.z, pos.x);
-      float swirl = 0.7 + 0.3 * sin(angle * 5.0 - t * 0.4 + r * 1.5);
-      col *= swirl;
-
-      // Doppler shift (approaching side brighter)
-      col *= 1.0 + 0.35 * sin(angle + PI * 0.25);
-
-      // Edge falloff
-      float radialFade = smoothstep(DISK_INNER, DISK_INNER + 1.0, r) *
-                         smoothstep(DISK_OUTER, DISK_OUTER - 2.0, r);
-      float vertFade = 1.0 - smoothstep(0.0, DISK_HALF, abs(pos.y));
-
-      // Brightness boost for inner region
-      float brightness = 1.0 + temp * 3.0;
-
-      return col * radialFade * vertFade * brightness;
-    }
-
-    // ── Ray tracer ───────────────────────────────
-    // Schwarzschild geodesic: d²r/dλ² = -1.5 * RS * L² / r⁴
-    // where L = |r × v| is the specific angular momentum
-    vec3 trace(vec3 ro, vec3 rd, float t) {
-      vec3 pos = ro;
-      vec3 vel = normalize(rd);
-      float stepSize = 0.3;
-      vec3 col = vec3(0.0);
-      float diskAlpha = 0.0;
-
-      for (int i = 0; i < STEPS; i++) {
-        float r = length(pos);
-
-        // Adaptive step size: smaller near the BH
-        stepSize = max(0.05, 0.15 * r / PHOTON_R);
-
-        // Captured
-        if (r < RS * 0.95) {
-          return col;
-        }
-
-        // Escaped
-        if (r > 70.0) {
-          float s = stars(normalize(vel));
-          col += vec3(0.65, 0.7, 0.9) * s * (1.0 - diskAlpha);
-          return col;
-        }
-
-        // Disk check (only when near the plane)
-        if (abs(pos.y) < DISK_HALF * 1.5) {
-          vec3 dc = diskColor(pos, t);
-          float lum = length(dc);
-          if (lum > 0.01) {
-            float a = min(lum * 0.5, 1.0);
-            col += dc * (1.0 - diskAlpha);
-            diskAlpha += a * (1.0 - diskAlpha);
-            if (diskAlpha > 0.95) return col;
-          }
-        }
-
-        // Gravitational deflection
-        // The correct Schwarzschild photon equation:
-        // acceleration = -1.5 * RS * (L²/r⁵) * pos
-        // where L² = |pos × vel|²
-        float r2 = r * r;
-        vec3 L = cross(pos, vel);
-        float L2 = dot(L, L);
-        vec3 accel = -1.5 * RS * L2 / (r2 * r2 * r) * pos;
-
-        vel += accel * stepSize;
-        pos += vel * stepSize;
-      }
-
-      // Timeout: use star field
-      float s = stars(normalize(vel));
-      col += vec3(0.65, 0.7, 0.9) * s * (1.0 - diskAlpha);
       return col;
     }
 
-    void main() {
-      vec2 uv = (gl_FragCoord.xy - 0.5 * uResolution) / min(uResolution.x, uResolution.y);
+    // Gravitational lensing distortion
+    vec2 lensDistort(vec2 uv, vec2 center, float mass) {
+      vec2 diff = uv - center;
+      float dist = length(diff);
+      if (dist < 0.001) return uv;
+      // Deflection angle ~ mass / dist (simplified)
+      float deflection = mass / (dist * dist + 0.02);
+      deflection = min(deflection, 2.0);
+      return uv + normalize(diff) * deflection * 0.015;
+    }
 
+    void main() {
+      vec2 uv = gl_FragCoord.xy / uResolution;
+      float aspect = uResolution.x / uResolution.y;
+      vec2 centered = (uv - 0.5) * vec2(aspect, 1.0);
+
+      // Black hole center (slightly offset for composition)
+      vec2 bhCenter = vec2(0.15, 0.1);
       float t = uTime;
 
-      // Camera: slightly above disk plane, offset for composition
-      // BH slightly right of center so form sits on the left
-      vec3 camPos = vec3(0.0, 4.0, 28.0);
-      vec3 target = vec3(0.0, 0.0, 0.0);
-      vec3 fwd = normalize(target - camPos);
-      vec3 right = normalize(cross(fwd, vec3(0.0, 1.0, 0.0)));
-      vec3 up = cross(right, fwd);
+      // Distance from black hole
+      vec2 diff = centered - bhCenter;
+      float dist = length(diff);
+      float angle = atan(diff.y, diff.x);
 
-      float fov = 0.7;
-      vec3 rd = normalize(fwd + uv.x * right * fov + uv.y * up * fov);
+      // ── Stars (behind everything, lensed) ──
+      vec2 lensedUV = lensDistort(centered, bhCenter, 0.8);
+      float s = stars(lensedUV + vec2(t * 0.005), 80.0);
+      s += stars(lensedUV * 1.5 + vec2(t * 0.003, -t * 0.002), 120.0) * 0.6;
 
-      vec3 col = trace(camPos, rd, t);
+      // Einstein ring glow (photon sphere)
+      float einsteinR = 0.15;
+      float einsteinGlow = exp(-pow((dist - einsteinR) * 15.0, 2.0)) * 0.4;
+      vec3 einsteinCol = vec3(0.7, 0.85, 1.0);
 
-      // Photon ring glow — subtle bloom around photon sphere
-      vec2 bhScreen = vec2(0.0, -0.04); // BH center in screen space approx
-      float distToCenter = length(uv - bhScreen);
-      float ringR = 0.11; // photon ring apparent radius
-      float ringGlow = exp(-pow((distToCenter - ringR) * 25.0, 2.0)) * 0.15;
-      col += vec3(1.0, 0.85, 0.6) * ringGlow;
+      // ── Accretion disk ──
+      // Tilt: simulate viewing at an angle by squashing Y
+      vec2 diskUV = diff;
+      diskUV.y *= 2.8; // tilt factor
+      float diskDist = length(diskUV);
+      float diskAngle = atan(diskUV.y, diskUV.x);
 
-      // Reinhard tone mapping
-      col = col / (1.0 + col);
-      col = pow(col, vec3(0.92));
+      vec3 disk = diskColor(diskDist, diskAngle, t);
 
-      // Vignette
-      float vig = 1.0 - 0.35 * dot(uv, uv);
+      // The disk goes behind the black hole (top half dimmed)
+      float behindBH = smoothstep(-0.02, 0.03, diff.y);
+      // Front part of disk is brighter
+      disk *= mix(0.3, 1.0, behindBH);
+
+      // Doppler shift: approaching side brighter
+      float doppler = 1.0 + 0.4 * sin(diskAngle - t * 0.3);
+      disk *= doppler;
+
+      // ── Black hole shadow ──
+      float shadow = smoothstep(BH_RADIUS + 0.02, BH_RADIUS - 0.01, dist);
+
+      // ── Compose ──
+      vec3 col = vec3(0.0);
+
+      // Stars
+      col += s * vec3(0.8, 0.85, 1.0) * (1.0 - shadow);
+
+      // Dim stars near the disk
+      float nearDisk = smoothstep(RING_OUTER + 0.1, RING_INNER, diskDist);
+      col *= 1.0 - nearDisk * 0.7;
+
+      // Einstein ring
+      col += einsteinCol * einsteinGlow * (1.0 - shadow);
+
+      // Accretion disk
+      col += disk * 1.5;
+
+      // Black hole (pure black center)
+      col *= (1.0 - shadow);
+
+      // Subtle vignette
+      float vig = 1.0 - length(uv - 0.5) * 0.8;
       col *= vig;
+
+      // Very subtle overall glow from disk
+      col += vec3(0.05, 0.03, 0.01) * smoothstep(0.8, 0.0, dist) * 0.2;
 
       gl_FragColor = vec4(col, 1.0);
     }
   `,
 });
 
-scene.add(new THREE.Mesh(geo, mat));
+const quad = new THREE.Mesh(geo, mat);
+scene.add(quad);
+
+// Mouse parallax
+let targetMouse = new THREE.Vector2(0.5, 0.5);
+document.addEventListener('mousemove', (e) => {
+  targetMouse.x = e.clientX / window.innerWidth;
+  targetMouse.y = 1.0 - e.clientY / window.innerHeight;
+});
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
-  mat.uniforms.uResolution.value.set(
-    window.innerWidth * pixelRatio,
-    window.innerHeight * pixelRatio
-  );
+  mat.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
 });
 
-// Throttle on mobile: 30fps instead of 60
-const targetFPS = isMobile ? 30 : 60;
-const frameInterval = 1000 / targetFPS;
-let lastFrame = 0;
-
 const clock = new THREE.Clock();
-function animate(now) {
+function animate() {
   requestAnimationFrame(animate);
-  if (now - lastFrame < frameInterval) return;
-  lastFrame = now;
   mat.uniforms.uTime.value = clock.getElapsedTime();
+  // Smooth mouse
+  mat.uniforms.uMouse.value.lerp(targetMouse, 0.05);
   renderer.render(scene, camera);
 }
-requestAnimationFrame(animate);
+animate();

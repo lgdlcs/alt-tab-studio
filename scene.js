@@ -217,11 +217,7 @@ canvas.addEventListener('touchstart', (e) => {
 function startWarp() {
   currentZone = 'warping';
   document.getElementById('hint').classList.add('hidden');
-
-  // Immediately remove anomaly + ring + title
-  scene.remove(anomaly);
-  scene.remove(ring);
-  scene.remove(titleGroup);
+  // Anomaly, ring, and title fade out during warp (not removed instantly)
 }
 
 // ─── Resize ──────────────────────────────────────────
@@ -269,6 +265,23 @@ function animate() {
   if (currentZone === 'warping') {
     warpProgress = Math.min(warpProgress + 0.008, 1);
     starMat.uniforms.uWarp.value = easeInOutCubic(warpProgress);
+
+    // Fade out anomaly, ring, and title during first half of warp
+    const fadeOut = Math.max(0, 1 - warpProgress * 3); // fades to 0 by ~33%
+    anomalyMat.opacity = fadeOut;
+    ringMat.opacity = 0.15 * fadeOut;
+    // Scale down anomaly + ring
+    const s = 0.5 + 0.5 * fadeOut;
+    anomaly.scale.setScalar(s);
+    ring.scale.setScalar(s);
+    // Fade title text
+    titleGroup.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.opacity = 0.95 * fadeOut;
+      }
+    });
+    // Drift title away
+    titleGroup.position.z = -warpProgress * 8;
 
     if (warpProgress >= 1 && !redirecting) {
       redirecting = true;

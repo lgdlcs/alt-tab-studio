@@ -1,6 +1,5 @@
 import * as THREE from 'three';
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+// Font imports removed (no 3D text on landing)
 
 // ─── Setup ───────────────────────────────────────────
 const canvas = document.getElementById('scene');
@@ -133,48 +132,7 @@ const ring = new THREE.Mesh(ringGeo, ringMat);
 ring.position.copy(anomaly.position);
 scene.add(ring);
 
-// ─── 3D Title Text ──────────────────────────────────
-let titleGroup = new THREE.Group();
-scene.add(titleGroup);
-
-const fontLoader = new FontLoader();
-fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-  const matWhite = new THREE.MeshBasicMaterial({ color: 0xfafafa, transparent: true, opacity: 0.95 });
-  const matTeal = new THREE.MeshBasicMaterial({ color: 0x0d9488, transparent: true, opacity: 0.95 });
-
-  const textSize = isMobile ? 0.35 : 0.55;
-  const textOpts = {
-    font,
-    size: textSize,
-    depth: 0.06,
-    curveSegments: 12,
-    bevelEnabled: false,
-  };
-
-  // "Alt Tab"
-  const geo1 = new TextGeometry('Alt Tab', textOpts);
-  geo1.computeBoundingBox();
-  const w1 = geo1.boundingBox.max.x - geo1.boundingBox.min.x;
-  const mesh1 = new THREE.Mesh(geo1, matWhite);
-  mesh1.position.set(-w1 / 2, 0.3, 0);
-
-  // "Studio"
-  const geo2 = new TextGeometry('Studio', textOpts);
-  geo2.computeBoundingBox();
-  const w2 = geo2.boundingBox.max.x - geo2.boundingBox.min.x;
-  const mesh2 = new THREE.Mesh(geo2, matTeal);
-  mesh2.position.set(-w2 / 2, isMobile ? -0.3 : -0.45, 0);
-
-  titleGroup.add(mesh1, mesh2);
-
-  if (isMobile) {
-    titleGroup.position.set(-0.5, 0.8, 0);
-    titleGroup.rotation.y = 0.08;
-  } else {
-    titleGroup.position.set(-0.8, 0.2, 0);
-    titleGroup.rotation.y = 0.12;
-  }
-});
+// ─── 3D Title Text (removed — clean landing) ────────
 
 // ─── Ambient light for depth ────────────────────────
 const ambientLight = new THREE.AmbientLight(0x0d9488, 0.3);
@@ -218,13 +176,10 @@ canvas.addEventListener('touchstart', (e) => {
 function startWarp() {
   currentZone = 'warping';
   document.getElementById('hint').classList.add('hidden');
-  document.getElementById('zone-intro').classList.remove('zone-active');
 
   // Immediately remove anomaly + ring
   scene.remove(anomaly);
   scene.remove(ring);
-  // Immediately remove title
-  scene.remove(titleGroup);
 }
 
 // ─── Resize ──────────────────────────────────────────
@@ -275,13 +230,8 @@ function animate() {
 
     if (warpProgress >= 1) {
       currentZone = 'work';
-      starMat.uniforms.uWarp.value = 0;
-      // Transition to zone-work + show navbar, canvas goes behind
-      document.getElementById('zone-work').classList.add('zone-active');
-      document.getElementById('navbar').classList.remove('hidden');
-      canvas.classList.add('behind');
-      // Slow down stars for ambient background
-      starMat.uniforms.uWarp.value = 0;
+      // Redirect to studio page
+      window.location.href = 'studio.html';
     }
   }
 

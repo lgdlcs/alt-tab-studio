@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alt Tab Studio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="Alt Tab Studio — Studio digital en Haute-Savoie.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Studio page: scrollable, stars bg via CSS */
+    html, body { overflow: auto; height: auto; min-height: 100vh; }
+    body {
+      background: #000;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .studio-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.1s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Navbar always visible */
+    .navbar { opacity: 1; transform: none; pointer-events: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <svg class="nav-icon" width="28" height="28" viewBox="0 0 120 120" fill="none">
+        <path d="M60 95 L20 70 L60 45 L100 70 Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M60 75 L20 50 L60 25 L100 50 Z" fill="#0d9488" fill-opacity="0.12" stroke="#0d9488" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="20" y1="70" x2="20" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="100" y1="70" x2="100" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="60" y1="95" x2="60" y2="75" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <line x1="60" y1="45" x2="60" y2="25" stroke="#0d9488" stroke-width="1.5" opacity="0.3"/>
+      </svg>
+      <span>Alt Tab <span class="nav-accent">Studio</span></span>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="studio-wrapper">
+    <h2 class="section-title">What we build</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h3>Websites</h3>
+        <p>Fast, modern, handcrafted sites that tell your story.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⟡</div>
+        <h3>Automation</h3>
+        <p>Workflows, bots and custom tools that save you time.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">◎</div>
+        <h3>AI Integration</h3>
+        <p>Smart AI solutions embedded into your business.</p>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a href="mailto:hello@alttabstudio.fr" class="cta-btn">Get in touch</a>
+      <span class="cta-loc">Haute-Savoie, France 🇫🇷</span>
+    </div>
+  </div>
+
+</body>
+</html>

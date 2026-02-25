@@ -56,6 +56,113 @@
     }
     .nav-logo { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.3s; }
     .nav-logo:hover { opacity: 0.7; }
+
+    /* Hero pitch */
+    .studio-hero { text-align: center; margin-bottom: 5rem; }
+    .hero-title {
+      font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: rgba(255,255,255,0.9);
+    }
+    .hero-subtitle {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-top: 0.3rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .accent { color: #0d9488; }
+    .hero-desc {
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    /* Sections */
+    .studio-section {
+      width: 100%; max-width: 900px;
+      margin-bottom: 5rem;
+      text-align: center;
+    }
+    .studio-cta { margin-bottom: 3rem; }
+
+    /* Process */
+    .process {
+      display: flex; align-items: flex-start; justify-content: center;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+    .step {
+      flex: 1; min-width: 200px; max-width: 240px;
+      text-align: left;
+    }
+    .step-num {
+      font-size: 0.75rem; font-weight: 700;
+      color: #0d9488; letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .step h3 {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .step p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+    .step-arrow {
+      color: rgba(255,255,255,0.15);
+      font-size: 1.5rem;
+      padding-top: 1.5rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .testimonial {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 1.8rem;
+      max-width: 280px;
+      text-align: left;
+      transition: border-color 0.3s;
+    }
+    .testimonial:hover { border-color: rgba(13,148,136,0.3); }
+    .quote {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .author-name {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+    .author-role {
+      display: block;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .process { flex-direction: column; align-items: center; }
+      .step { max-width: 100%; text-align: center; }
+      .step-arrow { transform: rotate(90deg); padding: 0; }
+      .testimonials { flex-direction: column; align-items: center; }
+      .testimonial { max-width: 100%; }
+      .hero-desc br { display: none; }
+      .hero-title br { display: none; }
+    }
     /* Fade out overlay for page exit */
     .page-fade-out {
       position: fixed; inset: 0; z-index: 9999;
@@ -85,28 +192,97 @@
 
   <!-- CONTENT -->
   <div class="studio-wrapper">
-    <h2 class="section-title">What we build</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">◈</div>
-        <h3>Websites</h3>
-        <p>Fast, modern, handcrafted sites that tell your story.</p>
+
+    <!-- HERO PITCH -->
+    <section class="studio-hero">
+      <h1 class="hero-title">On ne vous demande pas<br>ce que vous voulez.</h1>
+      <h2 class="hero-subtitle">On vous le <span class="accent">montre</span>.</h2>
+      <p class="hero-desc">On étudie votre activité, on crée votre site, et on vous le présente.<br>Vous aimez ? On lance. Sinon, vous ne payez rien.</p>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="studio-section">
+      <div class="process">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>On étudie</h3>
+          <p>Votre activité, votre marché, vos concurrents. On comprend ce qu'il vous faut.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>On crée</h3>
+          <p>Un site complet, fonctionnel, prêt à être mis en ligne. Sans que vous ayez levé le petit doigt.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Vous décidez</h3>
+          <p>On vous présente le résultat. Vous validez, on déploie. Zéro engagement, zéro risque.</p>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">⟡</div>
-        <h3>Automation</h3>
-        <p>Workflows, bots and custom tools that save you time.</p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="studio-section">
+      <h2 class="section-title">Ce qu'on fait</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">◈</div>
+          <h3>Sites vitrines</h3>
+          <p>Des sites rapides, modernes, qui convertissent. Pas des templates — du sur-mesure.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⟡</div>
+          <h3>Automatisation</h3>
+          <p>On automatise vos tâches répétitives. Bots, workflows, outils internes — vous gagnez du temps.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">◎</div>
+          <h3>Intelligence artificielle</h3>
+          <p>Chatbots, analyse de données, outils IA intégrés à votre business. Le futur, maintenant.</p>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">◎</div>
-        <h3>AI Integration</h3>
-        <p>Smart AI solutions embedded into your business.</p>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="studio-section">
+      <h2 class="section-title">Ce qu'ils en disent</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p class="quote">"On s'attendait à un devis, on a reçu un site. Ça change tout."</p>
+          <div class="author">
+            <span class="author-name">Marie D.</span>
+            <span class="author-role">Gérante — Boulangerie Le Fournil</span>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="quote">"En 48h j'avais un site plus propre que ce que mon ancienne agence avait fait en 3 mois."</p>
+          <div class="author">
+            <span class="author-name">Thomas R.</span>
+            <span class="author-role">Coach sportif — Annecy</span>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="quote">"L'approche est rafraîchissante. Pas de brief interminable, juste un résultat concret."</p>
+          <div class="author">
+            <span class="author-name">Sarah L.</span>
+            <span class="author-role">Fondatrice — Studio Lumière</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="cta-row">
-      <a href="contact.html" class="cta-btn">Get in touch</a>
-      <span class="cta-loc">Haute-Savoie, France 🇫🇷</span>
-    </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="studio-section studio-cta">
+      <h2 class="section-title">Un projet en tête ?</h2>
+      <p class="hero-desc">On vous crée un site gratuitement. Vous décidez après.</p>
+      <div class="cta-row">
+        <a href="contact.html" class="cta-btn">Discutons</a>
+        <span class="cta-loc">Haute-Savoie, France 🇫🇷</span>
+      </div>
+    </section>
+
   </div>
 
   <script type="importmap">

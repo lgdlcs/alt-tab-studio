@@ -19,6 +19,7 @@ const mouse = new THREE.Vector2();
 // ─── State ───────────────────────────────────────────
 let currentZone = 'intro'; // 'intro' | 'warping' | 'work'
 let warpProgress = 0;
+let redirecting = false;
 
 // ─── Stars ───────────────────────────────────────────
 const STAR_COUNT = 3000;
@@ -269,10 +270,14 @@ function animate() {
     warpProgress = Math.min(warpProgress + 0.008, 1);
     starMat.uniforms.uWarp.value = easeInOutCubic(warpProgress);
 
-    if (warpProgress >= 1) {
-      currentZone = 'work';
-      // Redirect to studio page
-      window.location.href = 'studio.html';
+    if (warpProgress >= 1 && !redirecting) {
+      redirecting = true;
+      // Fade to white then redirect
+      const fade = document.getElementById('fade-overlay');
+      fade.style.opacity = '1';
+      setTimeout(() => {
+        window.location.href = 'studio.html';
+      }, 800);
     }
   }
 

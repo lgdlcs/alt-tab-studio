@@ -11,14 +11,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Studio page: scrollable, stars bg via CSS */
+    /* Studio page: scrollable, stars bg via Three.js canvas */
     html, body { overflow: auto; height: auto; min-height: 100vh; }
-    body {
-      background: #000;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-      background-size: 40px 40px;
+    body { background: #000; }
+    #stars-bg {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
     }
     .studio-wrapper {
+      position: relative;
+      z-index: 1;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -33,10 +35,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
     /* Navbar always visible */
-    .navbar { opacity: 1; transform: none; pointer-events: auto; }
+    .navbar { opacity: 1; transform: none; pointer-events: auto; z-index: 50; }
   </style>
 </head>
 <body>
+
+  <canvas id="stars-bg"></canvas>
 
   <!-- NAVBAR -->
   <nav class="navbar">
@@ -79,5 +83,14 @@
     </div>
   </div>
 
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="stars-bg.js"></script>
 </body>
 </html>

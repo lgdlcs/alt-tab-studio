@@ -220,35 +220,11 @@ function startWarp() {
   document.getElementById('hint').classList.add('hidden');
   document.getElementById('zone-intro').classList.remove('zone-active');
 
-  // Fade out anomaly + ring
-  let anomalyFade = 1;
-  const anomalyInterval = setInterval(() => {
-    anomalyFade -= 0.05;
-    if (anomalyFade <= 0) {
-      scene.remove(anomaly);
-      scene.remove(ring);
-      clearInterval(anomalyInterval);
-      return;
-    }
-    anomalyMat.opacity = anomalyFade;
-    ringMat.opacity = anomalyFade * 0.15;
-  }, 16);
-  // Fade out title
-  titleGroup.traverse((child) => {
-    if (child.material) child.material.transparent = true;
-  });
-  let titleFade = 1;
-  const fadeInterval = setInterval(() => {
-    titleFade -= 0.03;
-    if (titleFade <= 0) {
-      scene.remove(titleGroup);
-      clearInterval(fadeInterval);
-      return;
-    }
-    titleGroup.traverse((child) => {
-      if (child.material) child.material.opacity = titleFade;
-    });
-  }, 16);
+  // Immediately remove anomaly + ring
+  scene.remove(anomaly);
+  scene.remove(ring);
+  // Immediately remove title
+  scene.remove(titleGroup);
 }
 
 // ─── Resize ──────────────────────────────────────────

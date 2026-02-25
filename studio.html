@@ -54,6 +54,16 @@
     @keyframes navIn {
       to { opacity: 1; transform: translateY(0); }
     }
+    .nav-logo { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.3s; }
+    .nav-logo:hover { opacity: 0.7; }
+    /* Fade out overlay for page exit */
+    .page-fade-out {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #000; opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    .page-fade-out.active { opacity: 1; }
   </style>
 </head>
 <body>
@@ -61,19 +71,16 @@
   <div class="page-fade"></div>
   <canvas id="stars-bg"></canvas>
 
-  <!-- NAVBAR -->
+  <!-- LOGO ONLY -->
   <nav class="navbar">
-    <div class="nav-logo">
-      <svg class="nav-icon" width="28" height="28" viewBox="0 0 120 120" fill="none">
-        <path d="M60 95 L20 70 L60 45 L100 70 Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M60 75 L20 50 L60 25 L100 50 Z" fill="#0d9488" fill-opacity="0.12" stroke="#0d9488" stroke-width="2.5" stroke-linejoin="round"/>
-        <line x1="20" y1="70" x2="20" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-        <line x1="100" y1="70" x2="100" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-        <line x1="60" y1="95" x2="60" y2="75" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-        <line x1="60" y1="45" x2="60" y2="25" stroke="#0d9488" stroke-width="1.5" opacity="0.3"/>
+    <a href="index.html" class="nav-logo" id="logo-link">
+      <svg class="nav-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <line x1="7" y1="16" x2="19" y2="16" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+        <path d="M17 10 L23 16 L17 22" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M26 8 L28.5 8 L28.5 24 L26 24" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
       <span>Alt Tab <span class="nav-accent">Studio</span></span>
-    </div>
+    </a>
   </nav>
 
   <!-- CONTENT -->
@@ -111,5 +118,20 @@
   }
   </script>
   <script type="module" src="stars-bg.js"></script>
+  <div class="page-fade-out" id="fade-out"></div>
+  <script>
+    // Smooth fade-out on all internal links
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('http') && !href.startsWith('mailto')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const fade = document.getElementById('fade-out');
+          fade.classList.add('active');
+          setTimeout(() => window.location.href = href, 600);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

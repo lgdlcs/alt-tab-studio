@@ -185,7 +185,11 @@
       <div id="form-view">
         <h2>Contactez-nous</h2>
         <p class="subtitle">Parlez-nous de votre projet. On revient vers vous sous 24h.</p>
-        <form id="contact-form" action="mailto:legrand.lucas0@gmail.com" method="POST" enctype="text/plain">
+        <form id="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nouveau message — Alt Tab Studio">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://lgdlcs.github.io/alt-tab-studio/contact.html#success">
+          <input type="text" name="_honey" style="display:none">
           <div class="form-group">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" placeholder="Jean Dupont" required>

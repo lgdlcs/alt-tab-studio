@@ -263,42 +263,57 @@ ul { list-style: none; }
 .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; position: relative; }
 .step p { font-size: 0.88rem; color: var(--text-muted); position: relative; }
 
-/* ============ PROJECTS ============ */
-.projects-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+/* ============ PROJECTS — infinite scroll ============ */
+.projects-scroll-wrapper {
+  overflow: hidden;
+  padding: 8px 0 20px;
 }
-.project-card {
+.projects-scroll-track {
+  display: flex; gap: 20px;
+  animation: scrollProjects 25s linear infinite;
+  width: max-content;
+}
+.projects-scroll-track:hover { animation-play-state: paused; }
+
+@keyframes scrollProjects {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.project-card-mini {
+  display: flex; align-items: center; gap: 16px;
   background: var(--card-bg);
   backdrop-filter: blur(var(--card-blur));
   -webkit-backdrop-filter: blur(var(--card-blur));
   border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden;
-  text-decoration: none; color: var(--text);
+  border-radius: 14px; padding: 16px 20px;
+  min-width: 320px; flex-shrink: 0;
   box-shadow: var(--card-shadow);
-  position: relative;
+  text-decoration: none; color: var(--text);
+  position: relative; overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.project-card::before {
+.project-card-mini::before {
   content: ''; position: absolute; inset: 0;
   background: var(--glass-shine);
-  pointer-events: none; border-radius: 16px; z-index: 1;
+  pointer-events: none; border-radius: 14px;
 }
-.project-card:hover {
-  transform: translateY(-4px);
+.project-card-mini:hover {
+  transform: translateY(-3px);
   box-shadow: var(--card-hover-shadow);
 }
-.project-img {
-  height: 160px; display: flex; align-items: center; justify-content: center;
+.project-mini-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0; position: relative;
 }
-.project-emoji { font-size: 3rem; }
-.project-info { padding: 20px; }
-.project-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-.project-info p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+.project-mini-info { position: relative; }
+.project-mini-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+.project-mini-info p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
 .project-tag {
-  display: inline-block; font-size: 0.72rem; font-weight: 600;
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
   color: var(--primary); background: rgba(13,148,136,0.08);
-  padding: 4px 10px; border-radius: 20px;
+  padding: 3px 8px; border-radius: 20px;
 }
 
 /* ============ CONTACT FORM ============ */

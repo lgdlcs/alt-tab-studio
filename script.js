@@ -1,9 +1,19 @@
 // ============ THEME: DAY / NIGHT ============
 (function() {
+  // URL override: ?theme=day or ?theme=night
+  var params = new URLSearchParams(window.location.search);
+  var forced = params.get('theme');
+  if (forced === 'night') {
+    document.documentElement.setAttribute('data-theme', 'night');
+    return;
+  }
+  if (forced === 'day') {
+    document.documentElement.removeAttribute('data-theme');
+    return;
+  }
+  // Auto: night 20h → 7h
   var hour = new Date().getHours();
-  // Night: 20h → 7h
-  var isNight = hour >= 20 || hour < 7;
-  if (isNight) {
+  if (hour >= 20 || hour < 7) {
     document.documentElement.setAttribute('data-theme', 'night');
   }
 })();

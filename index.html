@@ -207,7 +207,7 @@
     <div class="container">
       <h2 class="section-title">Parlons de votre projet</h2>
       <p class="section-sub">Un message suffit. On revient vers vous sous 24h.</p>
-      <form class="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Nouveau contact — Alt Tab Studio">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://lgdlcs.github.io/alt-tab-studio/">
@@ -217,8 +217,15 @@
         </div>
         <input type="text" name="activity" placeholder="Votre activité (ex: restaurant, artisan, école...)">
         <textarea name="message" placeholder="Décrivez brièvement votre besoin..." rows="4" required></textarea>
-        <button type="submit" class="btn btn-primary btn-full">Envoyer</button>
+        <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Envoyer</button>
       </form>
+      <div class="form-success" id="form-success">
+        <div class="success-checkmark">
+          <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="25" fill="none"/><path fill="none" d="M14 27l7 7 16-16"/></svg>
+        </div>
+        <h3>Message envoyé !</h3>
+        <p>On revient vers vous sous 24h.</p>
+      </div>
     </div>
   </section>
 

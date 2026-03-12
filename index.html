@@ -3,38 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alt Tab Studio</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <meta name="description" content="Alt Tab Studio — Studio digital en Haute-Savoie.">
+  <title>Alt Tab Studio — Sites vitrines sur mesure</title>
+  <meta name="description" content="Alt Tab Studio crée des sites vitrines personnalisés, optimisés SEO, avec IA et technologies gratuites. Simples à gérer, beaux à regarder.">
+  <link rel="icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="scene"></canvas>
 
-  <!-- OVERLAY UI -->
-  <div id="overlay" class="overlay">
-    <div class="hint" id="hint">
-      <span class="hint-icon">⬡</span>
-      <span>Cliquez sur l'anomalie</span>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Alt Tab Studio</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Comment ça marche</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#contact" class="btn btn-nav">Contact</a></li>
+      </ul>
     </div>
-  </div>
+  </nav>
 
-  <!-- ZONE: INTRO (space) — title is 3D text in scene.js -->
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-img hero-img-day" id="hero-day"></div>
+    <div class="hero-img hero-img-night" id="hero-night"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Studio digital · Haute-Savoie</p>
+      <h1>On construit votre site.<br>Vous décidez.</h1>
+      <p class="hero-sub">Sites vitrines personnalisés, optimisés SEO, faciles à gérer. Zéro engagement — on vous montre d'abord.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary">Découvrir</a>
+        <a href="#contact" class="btn btn-outline">Nous contacter</a>
+      </div>
+    </div>
+  </header>
 
-  <!-- Fade overlay for smooth transition -->
-  <div id="fade-overlay" style="position:fixed;inset:0;z-index:9999;background:#000;opacity:0;pointer-events:none;transition:opacity 0.8s ease;"></div>
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title">Ce qu'on fait</h2>
+      <p class="section-sub">Des sites vitrines qui travaillent pour vous — pas l'inverse.</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Design sur mesure</h3>
+          <p>Chaque site est unique. Pas de template, pas de WordPress. Du code propre, un design qui vous ressemble.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>SEO optimisé</h3>
+          <p>Visibilité Google dès le premier jour. Structure, balises, vitesse — tout est pensé pour le référencement.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>IA intégrée</h3>
+          <p>Chatbot, génération de contenu, automatisation — on intègre l'intelligence artificielle là où ça compte.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Technologies gratuites</h3>
+          <p>Hébergement gratuit, formulaires, analytics — zéro coût récurrent. Vous ne payez que la création.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <h3>Mobile first</h3>
+          <p>Responsive de base. Votre site est beau sur téléphone, tablette et desktop.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">✏️</div>
+          <h3>Facile à gérer</h3>
+          <p>Vous modifiez vos contenus via Google Sheets. Pas besoin de toucher au code — jamais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-    }
-  }
-  </script>
-  <script type="module" src="scene.js"></script>
+  <!-- PROCESS -->
+  <section class="section section-alt" id="process">
+    <div class="container">
+      <h2 class="section-title">Comment ça marche</h2>
+      <p class="section-sub">Trois étapes. Simple.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>On discute</h3>
+          <p>Vous nous parlez de votre activité. On comprend vos besoins, votre style, vos clients.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>On construit</h3>
+          <p>On crée votre site de A à Z. Vous le voyez avancer, vous donnez votre avis en temps réel.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Vous décidez</h3>
+          <p>Le site vous plaît ? On le met en ligne. Sinon, zéro engagement. Vous ne risquez rien.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  <section class="section" id="realisations">
+    <div class="container">
+      <h2 class="section-title">Réalisations</h2>
+      <p class="section-sub">Des projets récents pour des clients locaux.</p>
+      <div class="projects-grid">
+        <a href="https://lgdlcs.github.io/aero-bi/" target="_blank" rel="noopener" class="project-card">
+          <div class="project-img" style="background: linear-gradient(135deg, #FF6D00, #FF9100);">
+            <span class="project-emoji">🪂</span>
+          </div>
+          <div class="project-info">
+            <h3>Aero-Bi</h3>
+            <p>École de parapente & speed riding · Morzine-Avoriaz</p>
+            <span class="project-tag">Site vitrine · Google Sheets CMS · Planning</span>
+          </div>
+        </a>
+        <div class="project-card project-card-cta">
+          <div class="project-img" style="background: var(--bg-alt);">
+            <span class="project-emoji">🚀</span>
+          </div>
+          <div class="project-info">
+            <h3>Votre projet ?</h3>
+            <p>On vous crée un site vitrine sur mesure — montrez-nous votre activité.</p>
+            <a href="#contact" class="btn btn-primary btn-sm">Discutons</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <h2 class="section-title">Parlons de votre projet</h2>
+      <p class="section-sub">Un message suffit. On revient vers vous sous 24h.</p>
+      <form class="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nouveau contact — Alt Tab Studio">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://lgdlcs.github.io/alt-tab-studio/">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Votre nom" required>
+          <input type="email" name="email" placeholder="Votre email" required>
+        </div>
+        <input type="text" name="activity" placeholder="Votre activité (ex: restaurant, artisan, école...)">
+        <textarea name="message" placeholder="Décrivez brièvement votre besoin..." rows="4" required></textarea>
+        <button type="submit" class="btn btn-primary btn-full">Envoyer</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-logo">Alt Tab Studio</p>
+        <p class="footer-sub">Sites vitrines sur mesure · Haute-Savoie</p>
+        <p class="footer-copy">© 2026 Alt Tab Studio</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

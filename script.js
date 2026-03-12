@@ -46,26 +46,37 @@
 
   var chars = el.querySelectorAll('.char');
   var total = chars.length;
+  var litIndex = 0;
+  var animDone = false;
 
+  // Auto-animate on load — reveal chars progressively
+  function autoReveal() {
+    if (litIndex >= total) { animDone = true; return; }
+    chars[litIndex].classList.add('lit');
+    litIndex++;
+    // Speed: ~30ms per char (fast but readable)
+    setTimeout(autoReveal, 30);
+  }
+
+  // Start after a brief delay
+  setTimeout(autoReveal, 600);
+
+  // Scroll can also accelerate the reveal
   function onScroll() {
+    if (animDone) return;
     var scrollY = window.scrollY || window.pageYOffset;
     var heroH = document.getElementById('hero').offsetHeight;
-    // Progress: 0 at top, 1 when scrolled past 60% of hero
-    var progress = Math.min(1, Math.max(0, scrollY / (heroH * 0.55)));
-    // How many chars to light up
-    var litCount = Math.floor(progress * total);
-
-    for (var i = 0; i < total; i++) {
-      if (i < litCount) {
-        chars[i].classList.add('lit');
-      } else {
-        chars[i].classList.remove('lit');
-      }
+    var progress = Math.min(1, Math.max(0, scrollY / (heroH * 0.4)));
+    var targetLit = Math.floor(progress * total);
+    // Jump ahead if scroll is faster than animation
+    while (litIndex < targetLit && litIndex < total) {
+      chars[litIndex].classList.add('lit');
+      litIndex++;
     }
+    if (litIndex >= total) animDone = true;
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 })();
 
 // ============ NAV TOGGLE ============

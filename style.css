@@ -173,6 +173,21 @@ ul { list-style: none; }
   max-width: 520px; margin: 0 auto 32px;
   line-height: 1.6;
 }
+
+/* Scroll reveal text */
+.hero-reveal {
+  font-size: 1.5rem; line-height: 1.7;
+  max-width: 640px; margin: 0 auto 40px;
+  opacity: 1;
+}
+.hero-reveal .char {
+  display: inline-block; opacity: 0.12;
+  transition: opacity 0.15s ease;
+}
+.hero-reveal .char.lit { opacity: 1; }
+.hero-reveal .char-space { display: inline; width: 0.3em; }
+.hero-reveal strong .char { font-weight: 800; }
+.hero-reveal strong .char.lit { color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
 .hero-actions { display: flex; gap: 12px; justify-content: center; }
 
 /* ============ SECTIONS ============ */

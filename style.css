@@ -69,13 +69,52 @@ ul { list-style: none; }
 }
 .btn-primary {
   background: var(--primary); color: #fff;
+  position: relative; overflow: hidden; z-index: 1;
   box-shadow: 0 4px 16px var(--primary-glow);
 }
-.btn-primary:hover {
+.btn-primary::before {
+  content: ''; position: absolute;
+  inset: 0; width: 100%; height: 100%;
   background: var(--primary-hover);
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px var(--primary-glow);
 }
+
+/* Glide button — outline with fill on hover (Iron Velvet style) */
+.btn-glide {
+  background: transparent; color: var(--text);
+  border: 1.5px solid var(--border);
+  position: relative; overflow: hidden; z-index: 1;
+  padding: 14px 32px; border-radius: 12px;
+  font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.4s, border-color 0.4s, transform 0.3s;
+}
+.btn-glide::before {
+  content: ''; position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  background: var(--primary);
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.btn-glide:hover {
+  color: #fff; border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.btn-glide:hover::before { transform: translateX(0); }
+.btn-glide .btn-arrow {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.btn-glide:hover .btn-arrow { transform: translateX(4px); }
 .btn-outline {
   background: rgba(255,255,255,0.12); color: #fff;
   border: 1px solid rgba(255,255,255,0.3);

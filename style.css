@@ -20,10 +20,6 @@
   --footer-bg: rgba(17,24,39,0.85);
   --footer-text: rgba(255,255,255,0.6);
   --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.15) 100%);
-  --noise-opacity: 0.04;
-  --blob-1: rgba(13,148,136,0.12);
-  --blob-2: rgba(59,130,246,0.08);
-  --blob-3: rgba(168,85,247,0.06);
 }
 
 [data-theme="night"] {
@@ -45,10 +41,6 @@
   --hero-overlay: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
   --footer-bg: rgba(2,6,23,0.85);
   --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 50%, rgba(255,255,255,0.04) 100%);
-  --noise-opacity: 0.035;
-  --blob-1: rgba(20,184,166,0.08);
-  --blob-2: rgba(59,130,246,0.06);
-  --blob-3: rgba(168,85,247,0.05);
 }
 
 /* ============ RESET ============ */
@@ -60,30 +52,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   transition: background 0.6s, color 0.6s;
-  position: relative;
 }
-
-/* ============ NOISE + COLOR BLOBS ============ */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 20%, var(--blob-1), transparent),
-    radial-gradient(ellipse 50% 60% at 80% 50%, var(--blob-2), transparent),
-    radial-gradient(ellipse 55% 45% at 30% 80%, var(--blob-3), transparent);
-  transition: background 0.6s;
-}
-body::after {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  pointer-events: none;
-  background: url('images/noise.png') repeat;
-  opacity: var(--noise-opacity);
-  transition: opacity 0.6s;
-}
-/* All content above noise/blobs */
-body > * { position: relative; z-index: 1; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }

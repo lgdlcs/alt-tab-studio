@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alt Tab Studio — Sites vitrines sur mesure</title>
-  <meta name="description" content="Alt Tab Studio crée des sites vitrines personnalisés, optimisés SEO, avec IA et technologies gratuites. Simples à gérer, beaux à regarder.">
+  <title>Alt Tab Studio — Sites & applications métiers sur mesure</title>
+  <meta name="description" content="Alt Tab Studio conçoit des sites vitrines et des applications métiers sur mesure pour les PME et TPE. Optimisés, sécurisés, faciles à gérer — et on s'occupe de la maintenance.">
   <link rel="icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,6 +23,7 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#process">Comment ça marche</a></li>
+        <li><a href="#equipe">L'équipe</a></li>
         <li><a href="#realisations">Réalisations</a></li>
         <li><a href="#contact" class="btn btn-nav">Contact</a></li>
       </ul>
@@ -33,26 +35,35 @@
     <div class="hero-img hero-img-day" id="hero-day"></div>
     <div class="hero-img hero-img-night" id="hero-night"></div>
     <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
     <div class="hero-content">
-      <h1 class="hero-tag">Alt Tab Studio</h1>
-      <p class="hero-reveal" id="hero-reveal">Sites vitrines <strong>personnalisés</strong>, optimisés <strong>SEO</strong>,<br>faciles à gérer.</p>
+      <p class="hero-kicker">
+        <span class="keycap">Alt</span><span class="kbd-plus">+</span><span class="keycap">Tab</span>
+        <span class="kicker-text">Studio web &amp; applications · Haute-Savoie</span>
+      </p>
+      <h1 class="hero-title">Passez au<br><em>premier plan.</em></h1>
+      <p class="hero-sub">Sites vitrines et applications métiers sur mesure, pour les PME et TPE qui veulent un outil web à la hauteur.</p>
       <div class="hero-actions">
-        <a href="#services" class="btn btn-primary">Découvrir</a>
-        <a href="#contact" class="btn btn-outline">Nous contacter</a>
+        <a href="#contact" class="btn btn-primary">Discutons de votre projet</a>
+        <a href="#realisations" class="btn btn-outline">Voir nos réalisations</a>
       </div>
     </div>
+    <a href="#services" class="hero-scroll" aria-label="Défiler vers le bas">
+      <span class="hero-scroll-text">défiler</span>
+      <span class="hero-scroll-line"></span>
+    </a>
   </header>
 
   <!-- SERVICES -->
   <section class="section" id="services">
     <div class="container">
       <h2 class="section-title">Ce qu'on fait</h2>
-      <p class="section-sub">Des sites vitrines qui travaillent pour vous — pas l'inverse.</p>
+      <p class="section-sub">Sites vitrines, applications métiers — des outils web qui travaillent pour vous, pas l'inverse.</p>
       <div class="grid-3">
         <div class="card">
           <div class="card-icon">🎨</div>
-          <h3>Design sur mesure</h3>
-          <p>Chaque site est unique. Pas de template, pas de WordPress. Du code propre, un design qui vous ressemble.</p>
+          <h3>Sur mesure</h3>
+          <p>Site vitrine ou application métier : chaque projet est unique. Pas de template, du code propre, un outil pensé pour votre activité.</p>
         </div>
         <div class="card">
           <div class="card-icon">🔍</div>
@@ -65,9 +76,9 @@
           <p>Chatbot, génération de contenu, automatisation — on intègre l'intelligence artificielle là où ça compte.</p>
         </div>
         <div class="card">
-          <div class="card-icon">⚡</div>
-          <h3>Zéro abonnement</h3>
-          <p>Hébergement, formulaires, analytics — on utilise des outils gratuits et fiables. Pas de frais mensuels, pas de surprise.</p>
+          <div class="card-icon">🛡️</div>
+          <h3>Maintenance & sérénité</h3>
+          <p>Une fois en ligne, on veille sur votre site : hébergement, mises à jour, sauvegardes et petites modifs. Un forfait mensuel clair, et vous n'y pensez plus.</p>
         </div>
         <div class="card">
           <div class="card-icon">📱</div>
@@ -78,6 +89,18 @@
           <div class="card-icon">✏️</div>
           <h3>Facile à gérer</h3>
           <p>Vous modifiez vos contenus via Google Sheets. Pas besoin de toucher au code — jamais.</p>
+        </div>
+      </div>
+
+      <div class="offer-band">
+        <div class="offer-part">
+          <span class="offer-amount">Un projet sur mesure</span>
+          <span class="offer-label">site vitrine ou application métier, conçu pour votre activité</span>
+        </div>
+        <div class="offer-plus">+</div>
+        <div class="offer-part">
+          <span class="offer-amount">Un forfait mensuel</span>
+          <span class="offer-label">on s'occupe de tout : hébergement, mises à jour, support</span>
         </div>
       </div>
     </div>
@@ -108,8 +131,35 @@
     </div>
   </section>
 
+  <!-- ÉQUIPE -->
+  <section class="section" id="equipe">
+    <div class="container">
+      <h2 class="section-title">Qui est derrière Alt Tab</h2>
+      <p class="section-sub">Pas une agence anonyme. Deux développeurs, un seul interlocuteur — du premier message à la mise en ligne, et après.</p>
+      <div class="team">
+        <div class="member">
+          <div class="member-avatar member-avatar-lucas">L</div>
+          <div class="member-body">
+            <h3>Lucas</h3>
+            <span class="member-role">Design &amp; expérience</span>
+            <p>Interfaces, ergonomie, identité visuelle. C'est lui qui rend vos outils beaux, clairs et agréables à utiliser.</p>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-avatar member-avatar-corentin">C</div>
+          <div class="member-body">
+            <h3>Corentin</h3>
+            <span class="member-role">Architecture &amp; sécurité</span>
+            <p>Architecture, performance, hébergement. C'est lui qui rend vos outils rapides, fiables et bien protégés.</p>
+          </div>
+        </div>
+      </div>
+      <p class="team-note">Amis et développeurs complémentaires, on cumule 20 ans d'expérience métier. Curieux de nature, on aime s'attaquer aux problèmes complexes pour en tirer des solutions simples — et donner aux PME et TPE des outils aussi soignés que ceux des grands groupes.</p>
+    </div>
+  </section>
+
   <!-- RÉALISATIONS -->
-  <section class="section" id="realisations">
+  <section class="section section-alt" id="realisations">
     <div class="container">
       <h2 class="section-title">Réalisations</h2>
       <p class="section-sub">Des projets récents pour des clients locaux.</p>
@@ -203,7 +253,7 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="section section-alt" id="contact">
+  <section class="section" id="contact">
     <div class="container">
       <h2 class="section-title">Parlons de votre projet</h2>
       <p class="section-sub">Un message suffit. On revient vers vous sous 24h.</p>
@@ -234,7 +284,7 @@
     <div class="container">
       <div class="footer-inner">
         <p class="footer-logo">Alt Tab Studio</p>
-        <p class="footer-sub">Sites vitrines sur mesure · Haute-Savoie</p>
+        <p class="footer-sub">Sites vitrines & applications métiers sur mesure · Haute-Savoie</p>
         <p class="footer-copy">© 2026 Alt Tab Studio</p>
       </div>
     </div>

@@ -3,290 +3,380 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alt Tab Studio — Sites & applications métiers sur mesure</title>
-  <meta name="description" content="Alt Tab Studio conçoit des sites vitrines et des applications métiers sur mesure pour les PME et TPE. Optimisés, sécurisés, faciles à gérer — et on s'occupe de la maintenance.">
+  <title>Alt Tab Studio — Applications métiers & sites web sur mesure</title>
+  <meta name="description" content="Alt Tab Studio conçoit des applications métiers et des sites web sur mesure : l'outil qui digitalise votre activité (réservation, gestion, suivi client). Conçu, hébergé et maintenu par deux développeurs.">
   <link rel="icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Alt Tab Studio</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#top" class="brand">
+        <span class="brand-keys"><span class="key">Alt</span><span class="key">Tab</span></span>
+        <span class="brand-name">Studio</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span></button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#process">Comment ça marche</a></li>
-        <li><a href="#equipe">L'équipe</a></li>
-        <li><a href="#realisations">Réalisations</a></li>
-        <li><a href="#contact" class="btn btn-nav">Contact</a></li>
+        <li><a href="#offres">Offres</a></li>
+        <li><a href="#process">Méthode</a></li>
+        <li><a href="#equipe">Équipe</a></li>
+        <li><a href="#travaux">Travaux</a></li>
+        <li><a href="#contact" class="nav-cta">Démarrer →</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- HERO -->
-  <header class="hero" id="hero">
-    <div class="hero-img hero-img-day" id="hero-day"></div>
-    <div class="hero-img hero-img-night" id="hero-night"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-grain"></div>
-    <div class="hero-content">
-      <p class="hero-kicker">
-        <span class="keycap">Alt</span><span class="kbd-plus">+</span><span class="keycap">Tab</span>
-        <span class="kicker-text">Studio web &amp; applications · Haute-Savoie</span>
-      </p>
-      <h1 class="hero-title">Passez au<br><em>premier plan.</em></h1>
-      <p class="hero-sub">Sites vitrines et applications métiers sur mesure, pour les PME et TPE qui veulent un outil web à la hauteur.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Discutons de votre projet</a>
-        <a href="#realisations" class="btn btn-outline">Voir nos réalisations</a>
+  <header class="hero" id="top">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">
+          <span class="dot"></span>Studio de développement · applications &amp; sites sur mesure
+        </p>
+        <h1 class="hero-title reveal">Le web<br>au service des<br><em>PME &amp; TPE.</em></h1>
+        <p class="hero-sub reveal">Application de gestion, réservation, suivi client… ou site vitrine&nbsp;: on conçoit sur mesure le logiciel qui fait tourner votre activité.</p>
+        <div class="hero-actions reveal">
+          <a href="#contact" class="btn btn-solid">Discutons de votre projet</a>
+          <a href="#travaux" class="btn btn-ghost">Voir nos travaux</a>
+        </div>
+      </div>
+
+      <!-- SIGNATURE : app switcher -->
+      <div class="hero-switch reveal">
+        <svg class="hero-arrow draw" viewBox="0 0 96 70" fill="none" aria-hidden="true">
+          <path class="d1" pathLength="1" d="M4 10C34 4 74 14 80 46"/>
+          <path class="d2" pathLength="1" d="M68 38 80 49 90 36"/>
+        </svg>
+        <div class="switch-cue">
+          <span class="key key-lg">Alt</span><span class="plus">+</span><span class="key key-lg">Tab</span>
+          <span class="switch-hint">ce qu'on peut développer pour vous</span>
+        </div>
+        <div class="switcher" id="switcher" role="img" aria-label="Exemples d'applications métier sur mesure">
+          <!-- tiles injected/styled below -->
+          <button class="tile is-active" data-label="Réservation en ligne">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M7 13h3v3H7z" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <span class="tile-name">Réservation</span>
+          </button>
+          <button class="tile" data-label="Planning &amp; agenda d'équipe">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M7 9v8M12 9v8M17 9v8"/></svg>
+            </span>
+            <span class="tile-name">Planning</span>
+          </button>
+          <button class="tile" data-label="Devis &amp; facturation">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+            </span>
+            <span class="tile-name">Devis</span>
+          </button>
+          <button class="tile" data-label="Gestion &amp; suivi clients">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 6a3 3 0 0 1 0 6M20.5 20a5.5 5.5 0 0 0-4-5.3"/></svg>
+            </span>
+            <span class="tile-name">Clients</span>
+          </button>
+          <button class="tile" data-label="Tableau de bord &amp; pilotage">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" /></svg>
+            </span>
+            <span class="tile-name">Tableau de bord</span>
+          </button>
+          <button class="tile" data-label="Site vitrine sur mesure">
+            <span class="tile-ico">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg>
+            </span>
+            <span class="tile-name">Site vitrine</span>
+          </button>
+        </div>
+        <p class="switch-caption"><span class="switch-arrow">→</span> <span id="switch-label">Réservation en ligne</span></p>
       </div>
     </div>
-    <a href="#services" class="hero-scroll" aria-label="Défiler vers le bas">
-      <span class="hero-scroll-text">défiler</span>
-      <span class="hero-scroll-line"></span>
-    </a>
+
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="hero-marquee-track">
+        <span>Sur mesure</span><span class="sep">/</span><span>Sans template</span><span class="sep">/</span><span>Conçu · hébergé · maintenu</span><span class="sep">/</span><span>Deux développeurs</span><span class="sep">/</span><span>20 ans d'expérience</span><span class="sep">/</span>
+        <span>Sur mesure</span><span class="sep">/</span><span>Sans template</span><span class="sep">/</span><span>Conçu · hébergé · maintenu</span><span class="sep">/</span><span>Deux développeurs</span><span class="sep">/</span><span>20 ans d'expérience</span><span class="sep">/</span>
+      </div>
+    </div>
   </header>
 
-  <!-- SERVICES -->
-  <section class="section" id="services">
+  <main>
+  <!-- OFFRES (bloc encre) -->
+  <section class="section section-ink" id="offres">
     <div class="container">
-      <h2 class="section-title">Ce qu'on fait</h2>
-      <p class="section-sub">Sites vitrines, applications métiers — des outils web qui travaillent pour vous, pas l'inverse.</p>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-icon">🎨</div>
-          <h3>Sur mesure</h3>
-          <p>Site vitrine ou application métier : chaque projet est unique. Pas de template, du code propre, un outil pensé pour votre activité.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🔍</div>
-          <h3>SEO optimisé</h3>
-          <p>Visibilité Google dès le premier jour. Structure, balises, vitesse — tout est pensé pour le référencement.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🤖</div>
-          <h3>IA intégrée</h3>
-          <p>Chatbot, génération de contenu, automatisation — on intègre l'intelligence artificielle là où ça compte.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🛡️</div>
-          <h3>Maintenance & sérénité</h3>
-          <p>Une fois en ligne, on veille sur votre site : hébergement, mises à jour, sauvegardes et petites modifs. Un forfait mensuel clair, et vous n'y pensez plus.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">📱</div>
-          <h3>Mobile first</h3>
-          <p>Responsive de base. Votre site est beau sur téléphone, tablette et desktop.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">✏️</div>
-          <h3>Facile à gérer</h3>
-          <p>Vous modifiez vos contenus via Google Sheets. Pas besoin de toucher au code — jamais.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div>
+          <h2 class="sec-title">Ce qu'on fait</h2>
+          <svg class="sec-underline draw" viewBox="0 0 132 14" fill="none" aria-hidden="true"><path pathLength="1" d="M2 9C30 3 60 3 92 8s32 4 38-3"/></svg>
+          <p class="sec-lead">On développe l'outil web qui digitalise votre activité — du site vitrine à l'application métier.</p>
         </div>
       </div>
 
-      <div class="offer-band">
-        <div class="offer-part">
-          <span class="offer-amount">Un projet sur mesure</span>
-          <span class="offer-label">site vitrine ou application métier, conçu pour votre activité</span>
+      <div class="offers">
+        <article class="offer offer-main reveal">
+          <header class="offer-top">
+            <span class="offer-flag">Notre spécialité</span>
+            <span class="offer-idx">A</span>
+          </header>
+          <h3>Application métier<br>sur mesure</h3>
+          <p>Le logiciel qui fait tourner votre activité&nbsp;: réservation, planning, devis, gestion clients, tableaux de bord. Conçu pour <em>vos</em> process — pas un outil générique dans lequel vous devez rentrer au forceps.</p>
+          <ul class="offer-list">
+            <li>Pensé autour de votre façon de travailler</li>
+            <li>Automatise les tâches répétitives</li>
+            <li>Évolue avec votre entreprise</li>
+          </ul>
+        </article>
+
+        <article class="offer offer-sub reveal">
+          <header class="offer-top">
+            <span class="offer-flag offer-flag-alt">Pour démarrer</span>
+            <span class="offer-idx">B</span>
+          </header>
+          <h3>Site vitrine</h3>
+          <p>Une présence web pro, rapide et bien référencée pour être trouvé et contacté. Souvent la première étape avant d'aller plus loin.</p>
+          <ul class="offer-list">
+            <li>En ligne vite, sans prise de tête</li>
+            <li>Optimisé pour Google &amp; le mobile</li>
+            <li>Contenus modifiables sans toucher au code</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="included-title">Inclus à chaque projet</p>
+      <div class="included-row">
+        <span class="chip">Sur mesure, zéro template</span>
+        <span class="chip">SEO optimisé</span>
+        <span class="chip">IA intégrée</span>
+        <span class="chip">Mobile first</span>
+        <span class="chip">Édition via Google Sheets</span>
+        <span class="chip">Sécurisé &amp; maintenu</span>
+      </div>
+
+      <div class="model reveal">
+        <div class="model-part">
+          <span class="model-k">La conception</span>
+          <span class="model-v">application ou site, développé sur mesure pour votre activité</span>
         </div>
-        <div class="offer-plus">+</div>
-        <div class="offer-part">
-          <span class="offer-amount">Un forfait mensuel</span>
-          <span class="offer-label">on s'occupe de tout : hébergement, mises à jour, support</span>
+        <div class="model-op">+</div>
+        <div class="model-part">
+          <span class="model-k">Le suivi, inclus</span>
+          <span class="model-v">hébergement, mises à jour, sauvegardes, support et évolutions, dans un forfait mensuel clair</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PROCESS -->
-  <section class="section section-alt" id="process">
+  <section class="section" id="process">
     <div class="container">
-      <h2 class="section-title">Comment ça marche</h2>
-      <p class="section-sub">Trois étapes. Simple.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>On discute</h3>
-          <p>Vous nous parlez de votre activité. On comprend vos besoins, votre style, vos clients.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>On construit</h3>
-          <p>On crée votre site de A à Z. Vous le voyez avancer, vous donnez votre avis en temps réel.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Vous décidez</h3>
-          <p>Le site vous plaît ? On le met en ligne. Sinon, zéro engagement. Vous ne risquez rien.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <div>
+          <h2 class="sec-title">Comment ça marche</h2>
+          <svg class="sec-underline draw" viewBox="0 0 132 14" fill="none" aria-hidden="true"><path pathLength="1" d="M2 9C30 3 60 3 92 8s32 4 38-3"/></svg>
+          <p class="sec-lead">Trois étapes. Aucun engagement tant que ça ne vous plaît pas.</p>
         </div>
       </div>
+      <div class="reveal proc-wrap">
+        <svg class="process-line draw" viewBox="0 0 100 6" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="1" y1="3" x2="99" y2="3" pathLength="1" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-n">1</span>
+          <h3>On discute</h3>
+          <p>Vous nous parlez de votre activité. On comprend vos besoins, votre style, vos clients.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-n">2</span>
+          <h3>On construit</h3>
+          <p>On crée votre outil de A à Z. Vous le voyez avancer, vous donnez votre avis en temps réel.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-n">3</span>
+          <h3>Vous décidez</h3>
+          <p>Ça vous plaît&nbsp;? On met en ligne. Sinon, zéro engagement. Vous ne risquez rien.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
   <!-- ÉQUIPE -->
-  <section class="section" id="equipe">
+  <section class="section section-soft" id="equipe">
     <div class="container">
-      <h2 class="section-title">Qui est derrière Alt Tab</h2>
-      <p class="section-sub">Pas une agence anonyme. Deux développeurs, un seul interlocuteur — du premier message à la mise en ligne, et après.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div>
+          <h2 class="sec-title">Qui est derrière Alt Tab</h2>
+          <svg class="sec-underline draw" viewBox="0 0 132 14" fill="none" aria-hidden="true"><path pathLength="1" d="M2 9C30 3 60 3 92 8s32 4 38-3"/></svg>
+          <p class="sec-lead">Pas une agence anonyme. Deux développeurs, un seul interlocuteur — du premier message à la mise en ligne, et après.</p>
+        </div>
+      </div>
       <div class="team">
-        <div class="member">
-          <div class="member-avatar member-avatar-lucas">L</div>
-          <div class="member-body">
+        <article class="member reveal">
+          <div class="member-mono">L</div>
+          <div>
             <h3>Lucas</h3>
             <span class="member-role">Design &amp; expérience</span>
             <p>Interfaces, ergonomie, identité visuelle. C'est lui qui rend vos outils beaux, clairs et agréables à utiliser.</p>
           </div>
-        </div>
-        <div class="member">
-          <div class="member-avatar member-avatar-corentin">C</div>
-          <div class="member-body">
+        </article>
+        <article class="member reveal">
+          <div class="member-mono member-mono-c">C</div>
+          <div>
             <h3>Corentin</h3>
             <span class="member-role">Architecture &amp; sécurité</span>
             <p>Architecture, performance, hébergement. C'est lui qui rend vos outils rapides, fiables et bien protégés.</p>
           </div>
-        </div>
+        </article>
       </div>
-      <p class="team-note">Amis et développeurs complémentaires, on cumule 20 ans d'expérience métier. Curieux de nature, on aime s'attaquer aux problèmes complexes pour en tirer des solutions simples — et donner aux PME et TPE des outils aussi soignés que ceux des grands groupes.</p>
+      <p class="team-note reveal">Amis et développeurs complémentaires, on cumule 20 ans d'expérience métier. Curieux de nature, on aime s'attaquer aux problèmes complexes pour en tirer des solutions simples — et donner aux PME et TPE des outils aussi soignés que ceux des grands groupes.</p>
     </div>
   </section>
 
-  <!-- RÉALISATIONS -->
-  <section class="section section-alt" id="realisations">
+  <!-- TRAVAUX -->
+  <section class="section section-ink" id="travaux">
     <div class="container">
-      <h2 class="section-title">Réalisations</h2>
-      <p class="section-sub">Des projets récents pour des clients locaux.</p>
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <div>
+          <h2 class="sec-title">Travaux récents</h2>
+          <svg class="sec-underline draw" viewBox="0 0 132 14" fill="none" aria-hidden="true"><path pathLength="1" d="M2 9C30 3 60 3 92 8s32 4 38-3"/></svg>
+          <p class="sec-lead">Quelques projets récents.</p>
+        </div>
+      </div>
     </div>
-    <div class="projects-scroll-wrapper">
-      <div class="projects-scroll-track">
-        <!-- Set 1 -->
-        <a href="https://lgdlcs.github.io/aero-bi/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #FF6D00, #FF9100);">🪂</div>
-          <div class="project-mini-info">
-            <h3>Aero-Bi</h3>
-            <p>Parapente & speed riding · Morzine</p>
-            <span class="project-tag">Site vitrine · Google Sheets CMS</span>
-          </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <a href="https://lgdlcs.github.io/aero-bi/" target="_blank" rel="noopener" class="work">
+          <span class="work-idx">01</span>
+          <h3>Aero-Bi</h3>
+          <p>Parapente &amp; speed riding · Morzine</p>
+          <span class="work-tag">Site vitrine · CMS Google Sheets</span>
         </a>
-        <a href="https://lgdlcs.github.io/fc-shop-local/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">🏪</div>
-          <div class="project-mini-info">
-            <h3>Shop Local FC</h3>
-            <p>Annuaire commerces · Franche-Comté</p>
-            <span class="project-tag">Annuaire · Données locales</span>
-          </div>
+        <a href="https://lgdlcs.github.io/fc-shop-local/" target="_blank" rel="noopener" class="work">
+          <span class="work-idx">02</span>
+          <h3>Shop Local FC</h3>
+          <p>Annuaire commerces · Franche-Comté</p>
+          <span class="work-tag">Application · Annuaire</span>
         </a>
-        <div class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #0d9488, #14b8a6);">🏔️</div>
-          <div class="project-mini-info">
-            <h3>Lac d'Annecy 3D</h3>
-            <p>Terrain 3D interactif · Tourisme</p>
-            <span class="project-tag">Three.js · Données topographiques</span>
-          </div>
+        <div class="work">
+          <span class="work-idx">03</span>
+          <h3>Lac d'Annecy 3D</h3>
+          <p>Terrain 3D interactif · Tourisme</p>
+          <span class="work-tag">Application 3D · Three.js</span>
         </div>
-        <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #b45309, #d97706);">🧀</div>
-          <div class="project-mini-info">
-            <h3>La P'tite Clarine</h3>
-            <p>Restaurant savoyard · Samoëns</p>
-            <span class="project-tag">Site vitrine · Menu · Réservation</span>
-          </div>
+        <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" class="work">
+          <span class="work-idx">04</span>
+          <h3>La P'tite Clarine</h3>
+          <p>Restaurant savoyard · Samoëns</p>
+          <span class="work-tag">Site vitrine · Menu · Réservation</span>
         </a>
-        <div class="project-card-mini project-card-cta">
-          <div class="project-mini-icon" style="background: var(--bg-alt);">🚀</div>
-          <div class="project-mini-info">
-            <h3>Votre projet ?</h3>
-            <p>Un site vitrine sur mesure pour vous.</p>
-            <a href="#contact" class="btn btn-primary btn-sm">Discutons</a>
-          </div>
+        <a href="#contact" class="work work-cta">
+          <span class="work-idx">→</span>
+          <h3>Votre projet&nbsp;?</h3>
+          <p>Un outil sur mesure, conçu pour vous.</p>
+          <span class="work-tag">Discutons</span>
+        </a>
+        <!-- dup for infinite scroll -->
+        <a href="https://lgdlcs.github.io/aero-bi/" target="_blank" rel="noopener" class="work" aria-hidden="true">
+          <span class="work-idx">01</span>
+          <h3>Aero-Bi</h3>
+          <p>Parapente &amp; speed riding · Morzine</p>
+          <span class="work-tag">Site vitrine · CMS Google Sheets</span>
+        </a>
+        <a href="https://lgdlcs.github.io/fc-shop-local/" target="_blank" rel="noopener" class="work" aria-hidden="true">
+          <span class="work-idx">02</span>
+          <h3>Shop Local FC</h3>
+          <p>Annuaire commerces · Franche-Comté</p>
+          <span class="work-tag">Application · Annuaire</span>
+        </a>
+        <div class="work" aria-hidden="true">
+          <span class="work-idx">03</span>
+          <h3>Lac d'Annecy 3D</h3>
+          <p>Terrain 3D interactif · Tourisme</p>
+          <span class="work-tag">Application 3D · Three.js</span>
         </div>
-        <!-- Set 2 (duplicate for infinite scroll) -->
-        <a href="https://lgdlcs.github.io/aero-bi/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #FF6D00, #FF9100);">🪂</div>
-          <div class="project-mini-info">
-            <h3>Aero-Bi</h3>
-            <p>Parapente & speed riding · Morzine</p>
-            <span class="project-tag">Site vitrine · Google Sheets CMS</span>
-          </div>
+        <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" class="work" aria-hidden="true">
+          <span class="work-idx">04</span>
+          <h3>La P'tite Clarine</h3>
+          <p>Restaurant savoyard · Samoëns</p>
+          <span class="work-tag">Site vitrine · Menu · Réservation</span>
         </a>
-        <a href="https://lgdlcs.github.io/fc-shop-local/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">🏪</div>
-          <div class="project-mini-info">
-            <h3>Shop Local FC</h3>
-            <p>Annuaire commerces · Franche-Comté</p>
-            <span class="project-tag">Annuaire · Données locales</span>
-          </div>
+        <a href="#contact" class="work work-cta" aria-hidden="true">
+          <span class="work-idx">→</span>
+          <h3>Votre projet&nbsp;?</h3>
+          <p>Un outil sur mesure, conçu pour vous.</p>
+          <span class="work-tag">Discutons</span>
         </a>
-        <div class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #0d9488, #14b8a6);">🏔️</div>
-          <div class="project-mini-info">
-            <h3>Lac d'Annecy 3D</h3>
-            <p>Terrain 3D interactif · Tourisme</p>
-            <span class="project-tag">Three.js · Données topographiques</span>
-          </div>
-        </div>
-        <a href="https://lgdlcs.github.io/laptiteclarine/" target="_blank" rel="noopener" class="project-card-mini">
-          <div class="project-mini-icon" style="background: linear-gradient(135deg, #b45309, #d97706);">🧀</div>
-          <div class="project-mini-info">
-            <h3>La P'tite Clarine</h3>
-            <p>Restaurant savoyard · Samoëns</p>
-            <span class="project-tag">Site vitrine · Menu · Réservation</span>
-          </div>
-        </a>
-        <div class="project-card-mini project-card-cta">
-          <div class="project-mini-icon" style="background: var(--bg-alt);">🚀</div>
-          <div class="project-mini-info">
-            <h3>Votre projet ?</h3>
-            <p>Un site vitrine sur mesure pour vous.</p>
-            <a href="#contact" class="btn btn-primary btn-sm">Discutons</a>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section class="section" id="contact">
-    <div class="container">
-      <h2 class="section-title">Parlons de votre projet</h2>
-      <p class="section-sub">Un message suffit. On revient vers vous sous 24h.</p>
-      <form class="contact-form" id="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
+    <div class="container contact-wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">05</span>
+        <div>
+          <h2 class="sec-title">Parlons de votre projet</h2>
+          <svg class="sec-underline draw" viewBox="0 0 132 14" fill="none" aria-hidden="true"><path pathLength="1" d="M2 9C30 3 60 3 92 8s32 4 38-3"/></svg>
+          <p class="sec-lead">Un message suffit. On revient vers vous sous 24&nbsp;h.</p>
+        </div>
+      </div>
+      <form class="form reveal" id="contact-form" action="https://formsubmit.co/legrand.lucas0@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Nouveau contact — Alt Tab Studio">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://lgdlcs.github.io/alt-tab-studio/">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Votre nom" required>
-          <input type="email" name="email" placeholder="Votre email" required>
+        <div class="field">
+          <label>Votre nom</label>
+          <input type="text" name="name" placeholder="Jean Dupont" required>
         </div>
-        <input type="text" name="activity" placeholder="Votre activité (ex: restaurant, artisan, école...)">
-        <textarea name="message" placeholder="Décrivez brièvement votre besoin..." rows="4" required></textarea>
-        <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Envoyer</button>
+        <div class="field">
+          <label>Votre email</label>
+          <input type="email" name="email" placeholder="jean@exemple.fr" required>
+        </div>
+        <div class="field field-full">
+          <label>Votre activité</label>
+          <input type="text" name="activity" placeholder="restaurant, artisan, école…">
+        </div>
+        <div class="field field-full">
+          <label>Votre besoin</label>
+          <textarea name="message" placeholder="Décrivez brièvement ce que vous aimeriez…" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-solid btn-full" id="submit-btn">Envoyer le message</button>
       </form>
       <div class="form-success" id="form-success">
-        <div class="success-checkmark">
+        <div class="success-mark">
           <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="25" fill="none"/><path fill="none" d="M14 27l7 7 16-16"/></svg>
         </div>
-        <h3>Message envoyé !</h3>
-        <p>On revient vers vous sous 24h.</p>
+        <h3>Message envoyé&nbsp;!</h3>
+        <p>On revient vers vous sous 24&nbsp;h.</p>
       </div>
     </div>
   </section>
+  </main>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <p class="footer-logo">Alt Tab Studio</p>
-        <p class="footer-sub">Sites vitrines & applications métiers sur mesure · Haute-Savoie</p>
-        <p class="footer-copy">© 2026 Alt Tab Studio</p>
-      </div>
+    <div class="container footer-inner">
+      <a href="#top" class="brand brand-footer">
+        <span class="brand-keys"><span class="key">Alt</span><span class="key">Tab</span></span>
+        <span class="brand-name">Studio</span>
+      </a>
+      <p class="footer-sub">Applications métiers &amp; sites web sur mesure</p>
+      <p class="footer-copy">© 2026 Alt Tab Studio — <a href="#contact">démarrons votre projet</a></p>
     </div>
   </footer>
 

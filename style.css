@@ -153,17 +153,23 @@ svg { display: block; }
   max-width: 44ch; margin-bottom: 38px;
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.reassure {
+  margin-top: 20px; font-family: var(--mono); font-size: 0.74rem;
+  letter-spacing: 0.3px; color: var(--ink-soft);
+}
+.form-reassure { grid-column: 1 / -1; margin: 0; color: var(--accent); }
 
 /* ---- signature switcher ---- */
 .hero-switch { position: relative; }
 .switch-cue {
-  display: flex; align-items: center; gap: 7px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 16px;
 }
 .key-lg { font-size: 0.78rem; padding: 7px 12px; }
 .plus { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); }
 .switch-hint {
-  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.5px;
-  text-transform: uppercase; color: var(--ink-soft); margin-left: 8px;
+  flex-basis: 100%; margin-top: 8px;
+  font-family: var(--body); font-size: 0.92rem; font-weight: 500;
+  color: var(--ink);
 }
 .switcher {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
@@ -230,6 +236,13 @@ svg { display: block; }
 .sec-lead { font-size: 1.1rem; color: var(--ink-soft); line-height: 1.55; max-width: 52ch; }
 
 /* ============ OFFERS ============ */
+.guide {
+  font-size: 1.05rem; line-height: 1.6; color: var(--cream-soft);
+  max-width: 64ch; margin-bottom: 34px;
+}
+.guide strong { color: var(--accent); font-weight: 700; }
+.section-soft .guide, .section:not(.section-ink) .guide { color: var(--ink-soft); }
+
 .offers { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; margin-bottom: 56px; }
 .offer {
   border: 1px solid var(--line-cream); border-radius: var(--r-lg);
@@ -256,6 +269,10 @@ svg { display: block; }
   font-family: var(--display); font-weight: 700;
   font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.02; letter-spacing: -0.8px;
   margin-bottom: 16px;
+}
+.offer-aka {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.3px;
+  color: var(--ink-soft); margin: -8px 0 18px;
 }
 .offer p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 22px; }
 .offer-main p { color: var(--ink-soft); }
@@ -299,22 +316,6 @@ svg { display: block; }
 }
 .model-v { font-size: 0.95rem; color: var(--cream-soft); line-height: 1.5; max-width: 36ch; }
 .model-op { font-family: var(--display); font-size: 2.2rem; font-weight: 700; color: var(--cream-soft); }
-
-/* ============ STEPS ============ */
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.step {
-  background: var(--paper-2); border: 1px solid var(--line);
-  border-radius: var(--r-lg); padding: 40px 32px; position: relative;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-.section-soft .step { background: var(--paper); }
-.step:hover { transform: translateY(-5px); box-shadow: 0 18px 36px -18px rgba(20,26,46,0.4); }
-.step-n {
-  font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent);
-  display: block; margin-bottom: 26px;
-}
-.step h3 { font-family: var(--display); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; margin-bottom: 12px; }
-.step p { font-size: 0.95rem; color: var(--ink-soft); }
 
 /* ============ TEAM ============ */
 .team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
@@ -460,12 +461,6 @@ svg { display: block; }
 }
 .hero-arrow path { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
-/* process connector */
-.process-line { width: 100%; height: 40px; margin-bottom: 8px; color: var(--accent); overflow: visible; }
-.process-line line { stroke: currentColor; stroke-width: 2; stroke-dasharray: 1; }
-.process-line circle { fill: var(--paper); stroke: var(--accent); stroke-width: 2.4; }
-.section-soft .process-line circle { fill: var(--paper-2); }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
@@ -493,7 +488,6 @@ svg { display: block; }
   .nav.scrolled .nav-links, .nav-links.open { background: var(--paper); }
   .nav-links.open { display: flex; }
   .sec-head { flex-direction: column; gap: 10px; margin-bottom: 44px; }
-  .steps { grid-template-columns: 1fr; }
   .team { grid-template-columns: 1fr; }
   .form { grid-template-columns: 1fr; }
   .switcher { grid-template-columns: repeat(3, 1fr); padding: 14px; gap: 8px; }
